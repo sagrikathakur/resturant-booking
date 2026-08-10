@@ -1,0 +1,11 @@
+<svg width="480" height="160" viewBox="0 0 480 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cloche / Steamer Basket Icon -->
+  <g transform="translate(10, 10) scale(0.65)">
+    <path d="M94.973 77.7857C71.6795 77.7857 49.3399 87.0391 32.8689 103.51C16.3978 119.981 7.14447 142.321 7.14447 165.614L36.873 172.514C75.0944 181.378 114.837 181.378 153.059 172.514L182.802 165.614C182.802 142.321 173.548 119.981 157.077 103.51C140.606 87.0391 118.267 77.7857 94.973 77.7857ZM94.973 77.7857V44M74.7016 44H115.259M7.14447 205.2L36.873 212.086C75.0944 220.95 114.837 220.95 153.059 212.086L182.802 205.2" stroke="black" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Text Branding: DimSum -->
+  <text x="145" y="110" font-family="'Playfair Display', 'Outfit', Georgia, serif" font-size="86" font-weight="700" fill="black" letter-spacing="-1.5">
+    Dim<tspan font-weight="400" font-style="italic">Sum</tspan>
+  </text>
+</svg>

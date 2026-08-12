@@ -8,7 +8,7 @@ interface PendingApprovalProps {
 export default function PendingApproval({ restaurant }: PendingApprovalProps) {
     return (
         <div className="max-w-xl mx-auto bg-white border border-outline-variant/20 p-8 text-center shadow-sm rounded-md space-y-6">
-            <Info size={40} className="mx-auto text-secondary animate-pulse" />
+            <Info size={40} className="mx-auto text-primary animate-pulse" />
             <h2 className="font-display text-xl text-primary">Registration Pending Approval</h2>
             <p className="text-sm text-black/55 leading-relaxed">
                 Thank you for registering <span className="text-black">{restaurant?.name}</span>. Your profile details and slots listing are
@@ -26,7 +26,7 @@ export default function PendingApproval({ restaurant }: PendingApprovalProps) {
                 </p>
                 <p>
                     <strong>Status:</strong>{" "}
-                    <span className="text-secondary font-medium tracking-wider uppercase text-[9px] bg-secondary-container/20 px-2 py-0.5 rounded-sm">
+                    <span className="text-primary font-medium tracking-wider uppercase text-[9px] bg-black/5 px-2 py-0.5 rounded-sm">
                         PENDING
                     </span>
                 </p>

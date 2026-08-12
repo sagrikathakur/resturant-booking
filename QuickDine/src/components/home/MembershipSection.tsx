@@ -13,7 +13,7 @@ export default function MembershipSection() {
                     />
                 </div>
                 <div className="lg:col-span-5 flex flex-col justify-center lg:pl-6">
-                    <span className="text-[10px] text-secondary tracking-[0.2em] block mb-2 uppercase">PREMIUM CLUB MEMBERSHIP</span>
+                    <span className="text-[10px] text-black/60 tracking-[0.2em] block mb-2 uppercase font-medium">PREMIUM CLUB MEMBERSHIP</span>
                     <h2 className="font-display text-3xl md:text-4xl text-primary mb-6 leading-tight">Access the Exquisite Chef's Table</h2>
                     <p className="text-sm text-black/55 mb-8 leading-relaxed">
                         Join DimSum and receive priority access to seasonal chef collaborations, private dining club events, and
@@ -22,9 +22,9 @@ export default function MembershipSection() {
 
                     <div className="space-y-4">
                         <div className="flex gap-4">
-                            <BadgeCheck size={20} className="text-secondary shrink-0 mt-0.5" />
+                            <BadgeCheck size={20} className="text-primary shrink-0 mt-0.5" />
                             <div>
-                                <h4 className="text-sm text-primary">Last-Minute Reservations</h4>
+                                <h4 className="text-sm text-primary font-medium">Last-Minute Reservations</h4>
                                 <p className="text-xs text-black/55 mt-1 leading-relaxed">
                                     Unlock tables held exclusively for club members during peak weekends.
                                 </p>
@@ -32,9 +32,9 @@ export default function MembershipSection() {
                         </div>
 
                         <div className="flex gap-4">
-                            <Armchair size={20} className="text-secondary shrink-0 mt-0.5" />
+                            <Armchair size={20} className="text-primary shrink-0 mt-0.5" />
                             <div>
-                                <h4 className="text-sm text-primary">Curated Tasting Invites</h4>
+                                <h4 className="text-sm text-primary font-medium">Curated Tasting Invites</h4>
                                 <p className="text-xs text-black/55 mt-1 leading-relaxed">
                                     Receive personalized invitations to private kitchen tasting sessions.
                                 </p>

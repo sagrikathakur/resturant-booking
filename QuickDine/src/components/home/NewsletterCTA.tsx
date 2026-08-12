@@ -22,7 +22,7 @@ export default function NewsletterCTA() {
                     />
                     <button
                         type="submit"
-                        className="bg-white text-primary hover:bg-secondary hover:text-white transition-soft text-xs tracking-widest uppercase py-3 px-8 cursor-pointer"
+                        className="bg-white text-primary hover:bg-neutral-200 transition-soft text-xs tracking-widest uppercase py-3 px-8 cursor-pointer"
                     >
                         SUBSCRIBE
                     </button>

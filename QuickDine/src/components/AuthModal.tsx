@@ -115,7 +115,7 @@ export default function AuthModal() {
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
                                             placeholder="Sarah Jenkins"
-                                            className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
+                                            className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
                                         />
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@ export default function AuthModal() {
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         placeholder="you@example.com"
-                                        className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
+                                        className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
                                     />
                                 </div>
                             </div>
@@ -156,7 +156,7 @@ export default function AuthModal() {
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
                                             placeholder="+1 (555) 000-0000"
-                                            className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
+                                            className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
                                         />
                                     </div>
                                 </div>
@@ -177,7 +177,7 @@ export default function AuthModal() {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="••••••••"
-                                        className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
+                                        className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
                                     />
                                 </div>
                             </div>
@@ -190,7 +190,7 @@ export default function AuthModal() {
                                         id="isOwner"
                                         checked={isOwner}
                                         onChange={(e) => setIsOwner(e.target.checked)}
-                                        className="h-4 w-4 accent-secondary rounded border-outline-variant/60 cursor-pointer"
+                                        className="h-4 w-4 accent-primary rounded border-outline-variant/60 cursor-pointer"
                                     />
                                     <label htmlFor="isOwner" className="text-xs text-black/55 select-none cursor-pointer">
                                         I am a Restaurant Owner / Manager
@@ -205,7 +205,7 @@ export default function AuthModal() {
                         <button
                             type="submit"
                             disabled={formLoading}
-                            className="w-full bg-primary hover:bg-secondary text-white py-3.5 px-4 text-xs font-medium tracking-widest uppercase focus:outline-none transition-colors disabled:opacity-75 cursor-pointer"
+                            className="w-full bg-primary hover:bg-neutral-800 text-white py-3.5 px-4 text-xs font-medium tracking-widest uppercase focus:outline-none transition-colors disabled:opacity-75 cursor-pointer"
                         >
                             {formLoading ? "PROCESSING..." : isLoginTab ? "LOGIN" : "CREATE ACCOUNT"}
                         </button>

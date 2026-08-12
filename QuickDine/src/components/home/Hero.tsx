@@ -33,7 +33,7 @@ export default function Hero() {
 
             {/* Content */}
             <div className="relative z-10 w-full max-w-7xl px-6 md:px-10 text-center">
-                <span className="text-sm text-secondary-container tracking-[0.25em] uppercase block mb-4">
+                <span className="text-sm text-white/80 tracking-[0.25em] uppercase block mb-4">
                     EXQUISITE DINING EXPERIENCES
                 </span>
                 <h1 className="font-display text-4xl md:text-6xl text-white mb-12 max-w-3xl mx-auto leading-[1.15] font-medium tracking-tight drop-shadow-md">
@@ -98,7 +98,7 @@ export default function Hero() {
 
                     <button
                         type="submit"
-                        className="bg-primary text-on-primary text-xs tracking-widest uppercase px-8 py-4 md:py-3 hover:bg-secondary hover:text-white transition-soft cursor-pointer"
+                        className="bg-primary text-on-primary text-xs tracking-widest uppercase px-8 py-4 md:py-3 hover:bg-neutral-800 transition-soft cursor-pointer"
                     >
                         FIND A TABLE
                     </button>

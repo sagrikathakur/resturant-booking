@@ -51,7 +51,7 @@ export default function AdminDashboard() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-outline-variant/10 pb-8 mb-8 text-left">
                     <div>
                         <h1 className="font-display text-2xl md:text-3xl font-medium text-primary flex items-center gap-2">
-                            <ShieldCheckIcon size={28} className="text-secondary" /> Admin Console
+                            <ShieldCheckIcon size={28} className="text-primary" /> Admin Console
                         </h1>
                         <p className="text-xs text-black/55 mt-1.5">
                             Approve new restaurant partners, audit active slots listings, and review platform booking metrics.

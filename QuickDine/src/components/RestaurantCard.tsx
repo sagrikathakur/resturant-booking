@@ -48,7 +48,7 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                 {/* Exclusive & Featured Badges */}
                 <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
                     {restaurant.exclusive && (
-                        <span className="text-[9px] font-medium tracking-widest text-white bg-secondary py-1 px-2.5 uppercase">
+                        <span className="text-[9px] font-medium tracking-widest text-white bg-primary border border-white/20 py-1 px-2.5 uppercase">
                             EXCLUSIVE
                         </span>
                     )}
@@ -65,11 +65,11 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                 <div>
                     {/* Eyebrow metadata */}
                     <div className="flex justify-between items-center mb-2">
-                        <span className="text-[10px] font-medium text-secondary tracking-widest uppercase">{restaurant.cuisine}</span>
+                        <span className="text-[10px] font-medium text-black/70 tracking-widest uppercase">{restaurant.cuisine}</span>
                         <div className="flex items-center gap-1.5">
                             <span className="text-[10px] font-medium text-black/55">{restaurant.priceRange}</span>
                             <span className="text-black/55/30 text-xs">•</span>
-                            <div className="flex items-center gap-0.5 text-secondary">
+                            <div className="flex items-center gap-0.5 text-amber-500">
                                 <Star size={12} fill="currentColor" />
                                 <span className="text-xs font-medium text-primary">{dummyRating.toFixed(1)}</span>
                             </div>
@@ -78,7 +78,7 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
 
                     {/* Restaurant Title */}
                     <Link to={`/restaurant/${restaurant.slug}`} className="block mb-2">
-                        <h3 className="font-display text-lg font-semibold text-primary group-hover:text-secondary transition-colors line-clamp-1">
+                        <h3 className="font-display text-lg font-semibold text-primary group-hover:text-black/70 transition-colors line-clamp-1">
                             {restaurant.name}
                         </h3>
                     </Link>
@@ -115,7 +115,7 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                             ))}
                         <Link
                             to={`/restaurant/${restaurant.slug}`}
-                            className="text-[10px] font-medium border border-outline-variant/20 px-3 py-1.5 transition-colors cursor-pointer text-secondary hover:bg-secondary hover:text-white"
+                            className="text-[10px] font-medium border border-outline-variant/20 px-3 py-1.5 transition-colors cursor-pointer text-primary hover:bg-primary hover:text-white"
                         >
                             ALL SLOTS
                         </Link>

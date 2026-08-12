@@ -44,7 +44,7 @@ export default function AdminApprovals({ pendingRestaurants, otherRestaurants, b
                                             <Users size={12} /> Capacity: {r.totalSeats} seats
                                         </span>
                                     </div>
-                                    <p className="text-[10px] text-secondary font-medium tracking-wide uppercase pt-1">
+                                    <p className="text-[10px] text-black/60 font-medium tracking-wide uppercase pt-1">
                                         Owner: {r.owner?.name} ({r.owner?.email})
                                     </p>
                                 </div>
@@ -92,7 +92,7 @@ export default function AdminApprovals({ pendingRestaurants, otherRestaurants, b
                                 {otherRestaurants.map((r) => (
                                     <tr key={r._id} className="hover:bg-surface/50">
                                         <td className="p-4 font-medium text-primary">
-                                            <Link to={`/restaurant/${r.slug}`} className="hover:text-secondary">
+                                            <Link to={`/restaurant/${r.slug}`} className="hover:text-primary">
                                                 {r.name}
                                             </Link>
                                         </td>

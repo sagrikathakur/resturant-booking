@@ -36,34 +36,70 @@ export default function Navbar() {
         }
     };
 
+    // Determine if transparent navbar applies (Home page when top of page)
+    const isDarkHeroPage = location.pathname === "/";
+    const isTransparent = isDarkHeroPage && !scrolled;
+
     return (
         <nav
-            className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur-md h-16 shadow-sm border-b border-outline-variant/10" : "bg-transparent h-20 border-b border-transparent"}`}
+            className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+                isTransparent
+                    ? "bg-transparent h-20 border-b border-white/10"
+                    : "bg-white/95 backdrop-blur-md h-16 shadow-sm border-b border-outline-variant/10"
+            }`}
         >
             <div className="max-w-7xl mx-auto flex justify-between items-center h-full px-6 md:px-10">
                 {/* Logo */}
                 <div className="flex items-center gap-12">
-                    <Link to="/">
-                        <img src="/logo.svg" alt="Logo" className={`h-8.5 ${scrolled || (location.pathname === "/" && "invert")}`} />
+                    <Link to="/" className="flex items-center">
+                        <img
+                            src="/logo.svg"
+                            alt="Logo"
+                            className={`h-8.5 transition-all duration-300 ${isTransparent ? "brightness-0 invert" : ""}`}
+                        />
                     </Link>
 
                     {/* Desktop Navigation Links */}
                     <div className="hidden md:flex gap-8 items-center">
                         <Link
                             to="/"
-                            className={`text-sm transition-colors pb-1 border-b-2 cursor-pointer ${location.pathname === "/" ? (scrolled ? "text-secondary border-secondary" : "text-white border-white") : "text-black/55 hover:text-primary border-transparent"}`}
+                            className={`text-xs font-medium tracking-wider uppercase transition-colors pb-1 border-b-2 cursor-pointer ${
+                                location.pathname === "/"
+                                    ? isTransparent
+                                        ? "text-white border-white font-semibold"
+                                        : "text-primary border-primary font-semibold"
+                                    : isTransparent
+                                    ? "text-white/80 hover:text-white border-transparent"
+                                    : "text-black/60 hover:text-primary border-transparent"
+                            }`}
                         >
                             Discover
                         </Link>
                         <Link
                             to="/search"
-                            className={`text-sm transition-colors pb-1 border-b-2 border-transparent cursor-pointer ${location.pathname.startsWith("/search") ? "text-secondary border-secondary" : scrolled || location.pathname !== "/" ? "text-black/55 hover:text-primary" : "text-white/80 hover:text-white"}`}
+                            className={`text-xs font-medium tracking-wider uppercase transition-colors pb-1 border-b-2 cursor-pointer ${
+                                location.pathname.startsWith("/search")
+                                    ? isTransparent
+                                        ? "text-white border-white font-semibold"
+                                        : "text-primary border-primary font-semibold"
+                                    : isTransparent
+                                    ? "text-white/80 hover:text-white border-transparent"
+                                    : "text-black/60 hover:text-primary border-transparent"
+                            }`}
                         >
                             Restaurants
                         </Link>
                         <button
                             onClick={handleDashboardClick}
-                            className={`text-sm transition-colors pb-1 border-b-2 border-transparent cursor-pointer text-left ${location.pathname === "/dashboard" ? "text-secondary border-secondary" : scrolled || location.pathname !== "/" ? "text-black/55 hover:text-primary" : "text-white/80 hover:text-white"}`}
+                            className={`text-xs font-medium tracking-wider uppercase transition-colors pb-1 border-b-2 cursor-pointer text-left ${
+                                location.pathname === "/dashboard"
+                                    ? isTransparent
+                                        ? "text-white border-white font-semibold"
+                                        : "text-primary border-primary font-semibold"
+                                    : isTransparent
+                                    ? "text-white/80 hover:text-white border-transparent"
+                                    : "text-black/60 hover:text-primary border-transparent"
+                            }`}
                         >
                             My Bookings
                         </button>
@@ -76,9 +112,17 @@ export default function Navbar() {
                         <div className="relative">
                             <button
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                                className={`flex items-center gap-2 text-sm transition-colors cursor-pointer ${scrolled || location.pathname !== "/" ? "text-secondary" : "text-white"}`}
+                                className={`flex items-center gap-2.5 text-xs font-medium tracking-wider uppercase transition-colors cursor-pointer ${
+                                    isTransparent ? "text-white" : "text-primary"
+                                }`}
                             >
-                                <span className="size-7 rounded-full bg-secondary/20 border flex items-center justify-center text-xs uppercase">
+                                <span
+                                    className={`size-8 rounded-full flex items-center justify-center text-xs font-bold uppercase transition-colors ${
+                                        isTransparent
+                                            ? "bg-white/20 text-white border border-white/30"
+                                            : "bg-black/5 text-primary border border-black/10"
+                                    }`}
+                                >
                                     {user.name.charAt(0)}
                                 </span>
                                 <span className="max-w-[120px] truncate">{user.name.split(" ")[0]}</span>
@@ -86,14 +130,14 @@ export default function Navbar() {
 
                             {/* Dropdown Menu */}
                             {dropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-56 bg-white border border-outline-variant/30 ambient-shadow rounded-lg py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                                    <div className="px-4 py-2 border-b border-outline-variant/10">
-                                        <p className="text-sm text-primary truncate">{user.name}</p>
-                                        <p className="text-xs text-black/55 truncate">{user.email}</p>
+                                <div className="absolute right-0 mt-3 w-56 bg-white border border-outline-variant/30 ambient-shadow rounded-lg py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                                    <div className="px-4 py-2.5 border-b border-outline-variant/10">
+                                        <p className="text-xs font-semibold text-primary truncate">{user.name}</p>
+                                        <p className="text-[11px] text-black/55 truncate">{user.email}</p>
                                     </div>
                                     <button
                                         onClick={handleDashboardClick}
-                                        className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-black/55 hover:text-primary hover:bg-surface transition-colors cursor-pointer text-left"
+                                        className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-black/60 hover:text-primary hover:bg-surface transition-colors cursor-pointer text-left"
                                     >
                                         <LayoutDashboard size={14} />
                                         My Bookings
@@ -102,7 +146,7 @@ export default function Navbar() {
                                     {user.role === "admin" && (
                                         <Link
                                             to="/admin/dashboard"
-                                            className="flex items-center gap-3 px-4 py-2.5 text-xs text-black/55 hover:text-primary hover:bg-surface transition-colors cursor-pointer"
+                                            className="flex items-center gap-3 px-4 py-2.5 text-xs text-black/60 hover:text-primary hover:bg-surface transition-colors cursor-pointer"
                                         >
                                             <ShieldCheck size={14} />
                                             Admin Panel
@@ -112,7 +156,7 @@ export default function Navbar() {
                                     {user.role === "owner" && (
                                         <Link
                                             to="/owner/dashboard"
-                                            className="flex items-center gap-3 px-4 py-2.5 text-xs text-black/55 hover:text-primary hover:bg-surface transition-colors cursor-pointer"
+                                            className="flex items-center gap-3 px-4 py-2.5 text-xs text-black/60 hover:text-primary hover:bg-surface transition-colors cursor-pointer"
                                         >
                                             <ShieldCheck size={14} />
                                             Owner Panel
@@ -132,13 +176,19 @@ export default function Navbar() {
                         <>
                             <button
                                 onClick={() => setAuthModalOpen(true)}
-                                className={`text-sm transition-colors cursor-pointer ${scrolled || location.pathname !== "/" ? "text-black/55 hover:text-primary" : "text-white/80 hover:text-white"}`}
+                                className={`text-xs font-medium tracking-wider uppercase transition-colors cursor-pointer ${
+                                    isTransparent ? "text-white/90 hover:text-white" : "text-black/60 hover:text-primary"
+                                }`}
                             >
                                 Sign In
                             </button>
                             <button
                                 onClick={() => setAuthModalOpen(true)}
-                                className={`text-xs font-medium tracking-wider uppercase px-5 py-2.5 transition-soft cursor-pointer ${scrolled || location.pathname !== "/" ? "bg-primary text-white hover:bg-primary-container hover:text-secondary" : "bg-white text-primary hover:bg-secondary hover:text-white"}`}
+                                className={`text-xs font-medium tracking-wider uppercase px-5 py-2.5 transition-all duration-300 cursor-pointer rounded-sm ${
+                                    isTransparent
+                                        ? "bg-white/10 backdrop-blur-md text-white border border-white/40 hover:bg-white hover:text-black"
+                                        : "bg-primary text-white hover:bg-neutral-800"
+                                }`}
                             >
                                 Sign Up
                             </button>
@@ -150,7 +200,7 @@ export default function Navbar() {
                 <div className="flex items-center md:hidden">
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className={`p-2 transition-colors cursor-pointer ${scrolled || location.pathname !== "/" ? "text-primary" : "text-white"}`}
+                        className={`p-2 transition-colors cursor-pointer ${isTransparent ? "text-white" : "text-primary"}`}
                         aria-label="Toggle Menu"
                     >
                         {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -179,24 +229,24 @@ export default function Navbar() {
                     {user ? (
                         <div className="flex flex-col gap-4">
                             <div className="flex items-center gap-3">
-                                <span className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-sm uppercase">
+                                <span className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-primary text-sm font-semibold uppercase">
                                     {user.name.charAt(0)}
                                 </span>
                                 <div>
-                                    <p className="text-sm text-primary">{user.name}</p>
+                                    <p className="text-sm font-semibold text-primary">{user.name}</p>
                                     <p className="text-xs text-black/55">{user.email}</p>
                                 </div>
                             </div>
-                            <Link to="/dashboard" className="text-sm font-medium text-black/55 hover:text-primary">
+                            <Link to="/dashboard" className="text-sm font-medium text-black/60 hover:text-primary">
                                 My Bookings
                             </Link>
                             {user.role === "admin" && (
-                                <Link to="/admin/dashboard" className="text-sm font-medium text-black/55 hover:text-primary">
+                                <Link to="/admin/dashboard" className="text-sm font-medium text-black/60 hover:text-primary">
                                     Admin Console
                                 </Link>
                             )}
                             {user.role === "owner" && (
-                                <Link to="/owner/dashboard" className="text-sm font-medium text-black/55 hover:text-primary">
+                                <Link to="/owner/dashboard" className="text-sm font-medium text-black/60 hover:text-primary">
                                     Owner Console
                                 </Link>
                             )}
@@ -214,7 +264,7 @@ export default function Navbar() {
                             </button>
                             <button
                                 onClick={() => setAuthModalOpen(true)}
-                                className="w-full bg-primary text-white text-center py-3 text-xs font-medium tracking-widest uppercase hover:bg-secondary cursor-pointer"
+                                className="w-full bg-primary text-white text-center py-3 text-xs font-medium tracking-widest uppercase hover:bg-neutral-800 cursor-pointer"
                             >
                                 Sign Up
                             </button>

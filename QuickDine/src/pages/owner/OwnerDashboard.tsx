@@ -72,7 +72,7 @@ export default function OwnerDashboard() {
                                 </span>
                                 <div>
                                     <h4 className="font-display font-medium text-primary text-base line-clamp-1">{restaurant.name}</h4>
-                                    <span className="text-[9px] text-secondary tracking-widest uppercase bg-secondary-container/20 px-2 py-0.5 rounded-sm inline-block mt-0.5">
+                                    <span className="text-[9px] text-primary tracking-widest uppercase bg-black/5 px-2 py-0.5 rounded-sm inline-block mt-0.5">
                                         APPROVED
                                     </span>
                                 </div>

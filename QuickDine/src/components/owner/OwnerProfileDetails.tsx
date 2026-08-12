@@ -117,7 +117,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                             required
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                     <div className="space-y-1">
@@ -127,7 +127,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                             required
                             value={cuisine}
                             onChange={(e) => setCuisine(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                 </div>
@@ -139,7 +139,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                         rows={4}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full bg-surface-container-low/30 border border-outline-variant/40 p-3 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                        className="w-full bg-surface-container-low/30 border border-outline-variant/40 p-3 text-xs focus:border-primary focus:outline-none rounded-sm"
                     ></textarea>
                 </div>
 
@@ -163,7 +163,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                                 {imageFile ? "Change Image" : "Upload Image"}
                                 <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
                             </label>
-                            {imageFile && <span className="block text-[10px] text-secondary font-medium">Selected: {imageFile.name}</span>}
+                            {imageFile && <span className="block text-[10px] text-primary font-medium">Selected: {imageFile.name}</span>}
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                         <select
                             value={priceRange}
                             onChange={(e) => setPriceRange(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         >
                             <option value="$">$ (Casual)</option>
                             <option value="$$">$$ (Moderate)</option>
@@ -189,7 +189,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                             required
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                     <div className="space-y-1">
@@ -202,7 +202,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                             required
                             value={totalSeats}
                             onChange={(e) => setTotalSeats(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                 </div>
@@ -215,7 +215,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                             required
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                     <div className="space-y-1">
@@ -225,7 +225,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                             required
                             value={chef}
                             onChange={(e) => setChef(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                 </div>
@@ -236,7 +236,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                         type="text"
                         value={tags}
                         onChange={(e) => setTags(e.target.value)}
-                        className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                        className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                     />
                 </div>
 
@@ -266,7 +266,7 @@ export default function OwnerProfileDetails({ restaurant, setRestaurant }: Owner
                 <button
                     type="submit"
                     disabled={formLoading}
-                    className="w-full bg-primary hover:bg-secondary text-white text-xs font-medium tracking-widest uppercase py-3.5 transition-colors cursor-pointer"
+                    className="w-full bg-primary hover:bg-neutral-800 text-white text-xs font-medium tracking-widest uppercase py-3.5 transition-colors cursor-pointer"
                 >
                     {formLoading ? "SAVING CHANGES..." : "SAVE PROFILE DETAILS"}
                 </button>

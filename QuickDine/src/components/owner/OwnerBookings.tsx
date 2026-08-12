@@ -57,7 +57,7 @@ export default function OwnerBookings({ bookings, setBookings, totalSeats }: Own
                                     </span>
                                 </div>
                                 {b.specialRequests && (
-                                    <p className="text-xs text-secondary/80 bg-secondary/5 px-3 py-1.5 rounded-sm border-l-2 border-secondary mt-2">
+                                    <p className="text-xs text-black/70 bg-black/5 px-3 py-1.5 rounded-sm border-l-2 border-primary mt-2">
                                         <strong>Requests:</strong> {b.specialRequests}
                                     </p>
                                 )}

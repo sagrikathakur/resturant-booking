@@ -25,7 +25,7 @@ export default function Footer() {
                             <Link
                                 key={link.label}
                                 to={link.path}
-                                className="text-sm text-black/55 hover:text-secondary transition-colors"
+                                className="text-sm text-black/55 hover:text-primary transition-colors"
                             >
                                 {link.label}
                             </Link>
@@ -41,7 +41,7 @@ export default function Footer() {
 
                     <div className="flex gap-4 mt-2">
                         {socialLinks.map(({ icon: Icon, href }, index) => (
-                            <a key={index} href={href} className="text-black/55 hover:text-secondary transition-colors">
+                            <a key={index} href={href} className="text-black/55 hover:text-primary transition-colors">
                                 <Icon size={18} />
                             </a>
                         ))}
@@ -55,7 +55,7 @@ export default function Footer() {
 
                 <div className="flex gap-6">
                     {bottomLinks.map((link) => (
-                        <Link key={link.label} to={link.path} className="text-xs text-black/55 hover:text-secondary">
+                        <Link key={link.label} to={link.path} className="text-xs text-black/55 hover:text-primary">
                             {link.label}
                         </Link>
                     ))}

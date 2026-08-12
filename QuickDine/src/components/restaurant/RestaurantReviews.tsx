@@ -19,7 +19,7 @@ export default function RestaurantReviews() {
                                     <h4 className="text-sm font-medium text-primary">{r.userName}</h4>
                                     <span className="text-xs text-black/55">Visited {new Date(r.visitedDate).toLocaleDateString()}</span>
                                 </div>
-                                <div className="flex items-center gap-0.5 text-secondary">
+                                <div className="flex items-center gap-0.5 text-amber-500">
                                     {[...Array(5)].map((_, i) => (
                                         <Star
                                             key={i}

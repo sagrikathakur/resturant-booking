@@ -70,7 +70,7 @@ export default function About() {
                 <section className="max-w-7xl mx-auto px-6 md:px-10 py-20">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                         <div className="lg:col-span-6 space-y-6">
-                            <span className="text-xs font-medium text-secondary tracking-widest uppercase">OUR MISSION</span>
+                            <span className="text-xs font-medium text-black/60 tracking-widest uppercase">OUR MISSION</span>
                             <h2 className="font-display text-3xl md:text-4xl font-semibold text-primary">
                                 Connecting Discerning Diners with Unforgettable Experiences
                             </h2>
@@ -84,7 +84,7 @@ export default function About() {
                             <div className="pt-4 flex gap-4">
                                 <Link
                                     to="/search"
-                                    className="inline-flex items-center gap-2 bg-primary hover:bg-secondary text-white px-6 py-3 text-xs font-medium tracking-widest uppercase transition-colors rounded-sm"
+                                    className="inline-flex items-center gap-2 bg-primary hover:bg-neutral-800 text-white px-6 py-3 text-xs font-medium tracking-widest uppercase transition-colors rounded-sm"
                                 >
                                     Explore Restaurants <ArrowRight size={14} />
                                 </Link>
@@ -112,7 +112,7 @@ export default function About() {
                 <section className="bg-surface-container-low/50 py-20 px-6 md:px-10 border-y border-outline-variant/10">
                     <div className="max-w-7xl mx-auto space-y-12">
                         <div className="text-center max-w-2xl mx-auto space-y-3">
-                            <span className="text-xs font-medium text-secondary tracking-widest uppercase">THE QUICKDINE DIFFERENCE</span>
+                            <span className="text-xs font-medium text-black/60 tracking-widest uppercase">THE QUICKDINE DIFFERENCE</span>
                             <h2 className="font-display text-3xl font-semibold text-primary">Why Diners & Chefs Trust Us</h2>
                             <p className="text-xs text-black/55">Built upon standard-setting reliability, exquisite design, and culinary passion.</p>
                         </div>
@@ -121,8 +121,8 @@ export default function About() {
                             {values.map((val, idx) => {
                                 const IconComponent = val.icon;
                                 return (
-                                    <div key={idx} className="bg-white p-8 rounded-md border border-outline-variant/20 shadow-sm space-y-4 hover:border-secondary/50 transition-colors">
-                                        <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+                                    <div key={idx} className="bg-white p-8 rounded-md border border-outline-variant/20 shadow-sm space-y-4 hover:border-primary/50 transition-colors">
+                                        <div className="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center text-primary">
                                             <IconComponent size={22} />
                                         </div>
                                         <h3 className="font-display text-lg font-medium text-primary">{val.title}</h3>
@@ -144,7 +144,7 @@ export default function About() {
                         <div className="pt-2">
                             <Link
                                 to="/search"
-                                className="inline-block bg-secondary hover:bg-white hover:text-primary text-white font-medium text-xs tracking-widest uppercase px-8 py-3.5 transition-colors rounded-sm"
+                                className="inline-block bg-white hover:bg-neutral-200 text-primary font-medium text-xs tracking-widest uppercase px-8 py-3.5 transition-colors rounded-sm"
                             >
                                 Book Your Table Now
                             </Link>

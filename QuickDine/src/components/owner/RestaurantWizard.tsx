@@ -97,7 +97,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
     return (
         <div className="max-w-2xl mx-auto bg-white border border-outline-variant/20 p-8 md:p-10 shadow-sm rounded-md space-y-6">
             <div className="text-center space-y-2 pb-6 border-b border-outline-variant/10">
-                <Utensils size={36} className="mx-auto text-secondary" />
+                <Utensils size={36} className="mx-auto text-primary" />
                 <h2 className="font-display text-xl font-medium text-primary">Setup Restaurant Profile</h2>
                 <p className="text-xs text-black/55">
                     Please create your restaurant details. Once submitted, it will be pending approval from the Admin.
@@ -114,7 +114,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             placeholder="e.g. L'Artiste"
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                     <div className="space-y-1">
@@ -125,7 +125,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                             value={cuisine}
                             onChange={(e) => setCuisine(e.target.value)}
                             placeholder="e.g. French, Omakase"
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                 </div>
@@ -138,7 +138,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Describe the gastronomical experience, atmosphere, and dining philosophy..."
-                        className="w-full bg-surface-container-low/30 border border-outline-variant/40 p-3 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                        className="w-full bg-surface-container-low/30 border border-outline-variant/40 p-3 text-xs focus:border-primary focus:outline-none rounded-sm"
                     ></textarea>
                 </div>
 
@@ -162,7 +162,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                                 {imageFile ? "Change Image" : "Upload Image"}
                                 <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
                             </label>
-                            {imageFile && <span className="block text-[10px] text-secondary font-medium">Selected: {imageFile.name}</span>}
+                            {imageFile && <span className="block text-[10px] text-primary font-medium">Selected: {imageFile.name}</span>}
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                         <select
                             value={priceRange}
                             onChange={(e) => setPriceRange(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         >
                             <option value="$">$ (Casual)</option>
                             <option value="$$">$$ (Moderate)</option>
@@ -189,7 +189,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                             value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             placeholder="e.g. Manhattan, NY"
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                     <div className="space-y-1">
@@ -202,7 +202,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                             required
                             value={totalSeats}
                             onChange={(e) => setTotalSeats(e.target.value)}
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                 </div>
@@ -216,7 +216,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                             value={address}
                             onChange={(e) => setAddress(e.target.value)}
                             placeholder="123 Gastronomy Lane, New York"
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                     <div className="space-y-1">
@@ -227,7 +227,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                             value={chef}
                             onChange={(e) => setChef(e.target.value)}
                             placeholder="Chef Jean-Luc"
-                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                            className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                         />
                     </div>
                 </div>
@@ -239,7 +239,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                         value={tags}
                         onChange={(e) => setTags(e.target.value)}
                         placeholder="Michelin Star, Romantic, Rooftop"
-                        className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-secondary focus:outline-none rounded-sm"
+                        className="w-full bg-surface-container-low/30 border border-outline-variant/40 px-3 py-2.5 text-xs focus:border-primary focus:outline-none rounded-sm"
                     />
                 </div>
 
@@ -269,7 +269,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                 <button
                     type="submit"
                     disabled={formLoading}
-                    className="w-full bg-primary hover:bg-secondary text-white text-xs font-medium tracking-widest uppercase py-3.5 transition-colors cursor-pointer"
+                    className="w-full bg-primary hover:bg-neutral-800 text-white text-xs font-medium tracking-widest uppercase py-3.5 transition-colors cursor-pointer"
                 >
                     {formLoading ? "SUBMITTING..." : "REGISTER RESTAURANT"}
                 </button>

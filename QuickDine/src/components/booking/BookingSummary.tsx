@@ -21,7 +21,7 @@ export default function BookingSummary({ restaurant, date, slot, guests }: Booki
                     <img src={restaurant.image} alt={restaurant.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="space-y-1">
-                    <span className="text-[9px] text-secondary tracking-widest uppercase">{restaurant.cuisine}</span>
+                    <span className="text-[9px] text-black/60 tracking-widest uppercase font-medium">{restaurant.cuisine}</span>
                     <h4 className="font-display text-base font-medium text-primary leading-tight">{restaurant.name}</h4>
                     <p className="text-xs text-black/55 flex items-center gap-1">
                         <MapPin size={12} />

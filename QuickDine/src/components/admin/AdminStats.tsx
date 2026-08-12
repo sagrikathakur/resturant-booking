@@ -22,7 +22,7 @@ export default function AdminStats({ stats }: AdminStatsProps) {
                 {kpiCards.map(({ title, value, icon: Icon }) => (
                     <div key={title} className="bg-white border border-outline-variant/20 p-5 rounded-md shadow-sm space-y-2">
                         <span className="text-[10px] font-medium tracking-wider text-black/55 uppercase flex items-center gap-1.5">
-                            <Icon size={12} className="text-secondary" />
+                            <Icon size={12} className="text-primary" />
                             {title}
                         </span>
                         <h4 className="font-display text-2xl font-medium text-primary">{value}</h4>

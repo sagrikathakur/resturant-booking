@@ -10,10 +10,10 @@
   --color-on-primary: #ffffff;
   --color-primary-container: #1c1b1b;
   --color-on-primary-container: #858383;
-  --color-secondary: #775a19;
+  --color-secondary: #1a1c1c;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #fed488;
-  --color-on-secondary-container: #785a1a;
+  --color-secondary-container: #f3f4f6;
+  --color-on-secondary-container: #1f2937;
   --color-error: #ba1a1a;
   --color-on-error: #ffffff;
   --color-error-container: #ffdad6;
@@ -62,5 +62,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #c5a059;
+  background: #9ca3af;
 }

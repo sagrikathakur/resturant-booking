@@ -43,7 +43,7 @@ export default function BookingWidget({
                         <select
                             value={selectedGuests}
                             onChange={(e) => setSelectedGuests(e.target.value)}
-                            className="w-full bg-surface-container-low/30 pl-9 pr-3 py-2.5 text-xs border border-outline-variant/40 focus:border-secondary focus:outline-none rounded-md cursor-pointer"
+                            className="w-full bg-surface-container-low/30 pl-9 pr-3 py-2.5 text-xs border border-outline-variant/40 focus:border-primary focus:outline-none rounded-md cursor-pointer"
                         >
                             <option value="1">1 Guest</option>
                             <option value="2">2 Guests</option>
@@ -64,7 +64,7 @@ export default function BookingWidget({
                             value={selectedDate}
                             onChange={(e) => setSelectedDate(e.target.value)}
                             min={new Date().toISOString().split("T")[0]}
-                            className="w-full bg-surface-container-low/30 pl-9 pr-3 py-2.5 text-xs border border-outline-variant/40 focus:border-secondary focus:outline-none rounded-md cursor-pointer"
+                            className="w-full bg-surface-container-low/30 pl-9 pr-3 py-2.5 text-xs border border-outline-variant/40 focus:border-primary focus:outline-none rounded-md cursor-pointer"
                         />
                     </div>
                 </div>
@@ -75,7 +75,7 @@ export default function BookingWidget({
                     <div className="grid grid-cols-3 gap-2">
                         {loadingSlots ? (
                             <div className="col-span-3 py-4 text-center flex justify-center">
-                                <div className="w-5 h-5 border-2 border-outline-variant/30 border-t-secondary rounded-full animate-spin"></div>
+                                <div className="w-5 h-5 border-2 border-outline-variant/30 border-t-primary rounded-full animate-spin"></div>
                             </div>
                         ) : (
                             (() => {
@@ -109,7 +109,7 @@ export default function BookingWidget({
                                         onClick={() => setSelectedSlot(slot)}
                                         className={`py-2 px-1 text-center text-[10px] font-medium tracking-wider uppercase border transition-all rounded-sm ${
                                             isSelected
-                                                ? "bg-secondary border-secondary text-white shadow-sm cursor-pointer"
+                                                ? "bg-primary border-primary text-white shadow-sm cursor-pointer"
                                                 : isFull
                                                   ? "bg-black/5 border-outline-variant/10 text-black/25 cursor-not-allowed opacity-50"
                                                   : "border-outline-variant/40 text-black/55 hover:border-primary hover:text-primary cursor-pointer"
@@ -127,7 +127,7 @@ export default function BookingWidget({
                 {/* Action Button */}
                 <button
                     onClick={handleReserveClick}
-                    className="w-full bg-primary hover:bg-secondary text-on-primary py-4 mt-6 text-xs font-medium tracking-widest uppercase transition-colors cursor-pointer"
+                    className="w-full bg-primary hover:bg-neutral-800 text-on-primary py-4 mt-6 text-xs font-medium tracking-widest uppercase transition-colors cursor-pointer"
                 >
                     {isAuthenticated ? "RESERVE NOW" : "LOGIN TO RESERVE"}
                 </button>

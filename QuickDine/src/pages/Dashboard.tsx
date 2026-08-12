@@ -79,7 +79,7 @@ export default function Dashboard() {
 
                                     <Link
                                         to="/search"
-                                        className="inline-block mt-4 bg-primary hover:bg-secondary text-white text-[10px] font-medium tracking-widest uppercase px-6 py-2.5 transition-colors"
+                                        className="inline-block mt-4 bg-primary hover:bg-neutral-800 text-white text-[10px] font-medium tracking-widest uppercase px-6 py-2.5 transition-colors"
                                     >
                                         Book a Table
                                     </Link>
@@ -100,7 +100,7 @@ export default function Dashboard() {
                                                     />
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <span className="text-[9px] font-medium text-secondary tracking-widest uppercase">
+                                                    <span className="text-[9px] font-medium text-black/60 tracking-widest uppercase">
                                                         {b.restaurant?.cuisine || "Fine Dining"}
                                                     </span>
                                                     <h4 className="font-display text-base font-medium text-primary">
@@ -115,15 +115,15 @@ export default function Dashboard() {
 
                                             <div className="flex flex-wrap items-center gap-6 text-xs text-on-surface bg-surface-container-low p-4 rounded-md border border-outline-variant/10 w-full md:w-auto">
                                                 <div className="flex items-center gap-2 pr-4 md:border-r border-outline-variant/20">
-                                                    <CalendarIcon size={14} className="text-secondary" />
+                                                    <CalendarIcon size={14} className="text-primary" />
                                                     <span className="font-medium">{new Date(b.date).toLocaleDateString()}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2 pr-4 md:border-r border-outline-variant/20">
-                                                    <ClockIcon size={14} className="text-secondary" />
+                                                    <ClockIcon size={14} className="text-primary" />
                                                     <span className="font-medium">{b.time}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2">
-                                                    <UsersIcon size={14} className="text-secondary" />
+                                                    <UsersIcon size={14} className="text-primary" />
                                                     <span className="font-medium">{b.guests} Guests</span>
                                                 </div>
                                             </div>
@@ -163,7 +163,7 @@ export default function Dashboard() {
                                                         <td className="p-4 font-medium text-primary">
                                                             <Link
                                                                 to={`/restaurant/${b.restaurant?.slug || b.restaurant?._id}`}
-                                                                className="hover:text-secondary"
+                                                                className="hover:text-primary"
                                                             >
                                                                 {b.restaurant?.name}
                                                             </Link>
@@ -178,7 +178,7 @@ export default function Dashboard() {
                                                             <span
                                                                 className={`inline-block py-0.5 px-2 text-[9px] font-medium tracking-wider uppercase rounded-sm ${
                                                                     b.status === "confirmed"
-                                                                        ? "bg-secondary-container/30 text-on-secondary-container"
+                                                                        ? "bg-black/5 text-primary"
                                                                         : b.status === "completed"
                                                                           ? "bg-green-100 text-green-800"
                                                                           : "bg-error-container text-on-error-container"

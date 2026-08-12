@@ -15,7 +15,7 @@ export default function BookingSuccess({ confirmedBooking, restaurant, date, slo
 
     return (
         <div className="max-w-xl w-full bg-white border border-outline-variant/20 p-10 text-center rounded-lg ambient-shadow space-y-8 animate-in zoom-in-95 duration-300">
-            <div className="w-16 h-16 bg-secondary/15 rounded-full flex items-center justify-center text-secondary mx-auto">
+            <div className="w-16 h-16 bg-black/10 rounded-full flex items-center justify-center text-primary mx-auto">
                 <Check size={32} />
             </div>
 
@@ -31,7 +31,7 @@ export default function BookingSuccess({ confirmedBooking, restaurant, date, slo
             <div className="bg-surface-container-low p-6 rounded-md space-y-4 text-left border border-outline-variant/10">
                 <div className="flex justify-between items-center pb-3 border-b border-outline-variant/10">
                     <span className="text-[10px] font-medium text-black/55 tracking-wider uppercase">REFERENCE CODE</span>
-                    <span className="text-sm font-medium text-secondary">{confirmedBooking.bookingId}</span>
+                    <span className="text-sm font-medium text-primary font-mono">{confirmedBooking.bookingId}</span>
                 </div>
 
                 <div className="space-y-3 text-xs text-on-surface">
@@ -65,7 +65,7 @@ export default function BookingSuccess({ confirmedBooking, restaurant, date, slo
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Link
                     to="/dashboard"
-                    className="flex-1 bg-primary hover:bg-primary-container text-white py-3.5 px-4 text-xs font-medium tracking-widest uppercase hover:text-secondary text-center cursor-pointer transition-colors"
+                    className="flex-1 bg-primary hover:bg-neutral-800 text-white py-3.5 px-4 text-xs font-medium tracking-widest uppercase text-center cursor-pointer transition-colors"
                 >
                     MY BOOKINGS
                 </Link>

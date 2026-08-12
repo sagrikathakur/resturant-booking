@@ -42,7 +42,7 @@ export default function BookingForm({
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
+                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
                             required
                         />
                     </div>
@@ -54,7 +54,7 @@ export default function BookingForm({
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
+                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
                             required
                         />
                     </div>
@@ -68,7 +68,7 @@ export default function BookingForm({
                             type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none transition-colors"
+                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
                             required
                         />
                     </div>
@@ -79,7 +79,7 @@ export default function BookingForm({
                         <select
                             value={occasion}
                             onChange={(e) => setOccasion(e.target.value)}
-                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-secondary focus:outline-none cursor-pointer"
+                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none cursor-pointer"
                         >
                             <option value="">None</option>
                             <option value="Birthday">Birthday</option>
@@ -100,7 +100,7 @@ export default function BookingForm({
                         onChange={(e) => setSpecialRequests(e.target.value)}
                         rows={3}
                         placeholder="Allergies, dietary restrictions, table preference..."
-                        className="w-full bg-surface-container-low/20 border border-outline-variant/40 rounded-md p-3 text-xs focus:border-secondary focus:outline-none"
+                        className="w-full bg-surface-container-low/20 border border-outline-variant/40 rounded-md p-3 text-xs focus:border-primary focus:outline-none"
                     ></textarea>
                 </div>
 
@@ -116,7 +116,7 @@ export default function BookingForm({
                 <button
                     type="submit"
                     disabled={confirming}
-                    className="w-full bg-primary hover:bg-secondary text-white py-4 text-xs font-medium tracking-widest uppercase transition-colors cursor-pointer"
+                    className="w-full bg-primary hover:bg-neutral-800 text-white py-4 text-xs font-medium tracking-widest uppercase transition-colors cursor-pointer"
                 >
                     {confirming ? "CONFIRMING TABLE..." : "BOOK TABLE"}
                 </button>

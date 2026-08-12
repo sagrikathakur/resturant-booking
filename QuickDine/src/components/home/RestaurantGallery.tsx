@@ -78,7 +78,7 @@ export default function RestaurantGallery() {
                 {/* Eyebrow & Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-outline-variant/10 pb-8">
                     <div className="space-y-2 text-left">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-secondary tracking-widest uppercase bg-secondary/10 px-3 py-1 rounded-full">
+                        <span className="inline-flex items-center gap-1.5 text-xs font-medium text-primary tracking-widest uppercase bg-black/5 px-3 py-1 rounded-full">
                             <Camera size={14} /> RESTAURANT PHOTO GALLERY
                         </span>
                         <h2 className="font-display text-3xl md:text-4xl font-semibold text-primary">
@@ -120,11 +120,11 @@ export default function RestaurantGallery() {
 
                             {/* Caption Footer */}
                             <div className="p-4 bg-white border-t border-outline-variant/10 text-left space-y-1">
-                                <h3 className="font-display text-sm font-semibold text-primary truncate group-hover:text-secondary transition-colors">
+                                <h3 className="font-display text-sm font-semibold text-primary truncate group-hover:text-black/70 transition-colors">
                                     {photo.title}
                                 </h3>
                                 <div className="flex justify-between items-center text-[10px] text-black/55">
-                                    <span className="font-medium text-secondary">{photo.cuisine}</span>
+                                    <span className="font-medium text-black/60">{photo.cuisine}</span>
                                     <span className="flex items-center gap-1"><MapPin size={10} /> {photo.location}</span>
                                 </div>
                             </div>

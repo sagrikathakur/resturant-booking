@@ -121,7 +121,7 @@ export default function Search() {
                                 placeholder="Search cuisine or name..."
                                 value={tempSearch}
                                 onChange={(e) => setTempSearch(e.target.value)}
-                                className="w-full pl-9 pr-3 py-2 text-xs border border-outline-variant/40 rounded-md focus:border-secondary focus:outline-none bg-surface-container-low/30"
+                                className="w-full pl-9 pr-3 py-2 text-xs border border-outline-variant/40 rounded-md focus:border-primary focus:outline-none bg-surface-container-low/30"
                             />
                         </div>
                         <div className="relative grow sm:grow-0 min-w-[200px]">
@@ -131,12 +131,12 @@ export default function Search() {
                                 placeholder="Location..."
                                 value={tempLocation}
                                 onChange={(e) => setTempLocation(e.target.value)}
-                                className="w-full pl-9 pr-3 py-2 text-xs border border-outline-variant/40 rounded-md focus:border-secondary focus:outline-none bg-surface-container-low/30"
+                                className="w-full pl-9 pr-3 py-2 text-xs border border-outline-variant/40 rounded-md focus:border-primary focus:outline-none bg-surface-container-low/30"
                             />
                         </div>
                         <button
                             type="submit"
-                            className="bg-primary hover:bg-secondary text-white text-[10px] font-medium tracking-wider uppercase px-5 py-2.5 rounded-md cursor-pointer transition-colors"
+                            className="bg-primary hover:bg-neutral-800 text-white text-[10px] font-medium tracking-wider uppercase px-5 py-2.5 rounded-md cursor-pointer transition-colors"
                         >
                             UPDATE
                         </button>
@@ -162,7 +162,7 @@ export default function Search() {
                             <h3 className="font-display text-lg font-medium text-primary">Filters</h3>
                             <button
                                 onClick={clearAllFilters}
-                                className="text-[10px] font-medium text-secondary hover:text-primary tracking-wider uppercase cursor-pointer"
+                                className="text-[10px] font-medium text-black/60 hover:text-primary tracking-wider uppercase cursor-pointer"
                             >
                                 Clear All
                             </button>
@@ -242,7 +242,7 @@ export default function Search() {
 
                     {loading ? (
                         <div className="grow flex justify-center items-center py-24">
-                            <div className="w-10 h-10 border-2 border-outline-variant/30 border-t-secondary rounded-full animate-spin"></div>
+                            <div className="w-10 h-10 border-2 border-outline-variant/30 border-t-primary rounded-full animate-spin"></div>
                         </div>
                     ) : restaurants.length === 0 ? (
                         <div className="grow flex flex-col items-center justify-center py-24 text-center">
@@ -253,7 +253,7 @@ export default function Search() {
                             </p>
                             <button
                                 onClick={clearAllFilters}
-                                className="bg-primary hover:bg-secondary text-white text-xs tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer"
+                                className="bg-primary hover:bg-neutral-800 text-white text-xs tracking-widest uppercase px-6 py-3 transition-colors cursor-pointer"
                             >
                                 CLEAR ALL FILTERS
                             </button>
@@ -346,7 +346,7 @@ export default function Search() {
                             </button>
                             <button
                                 onClick={() => setShowMobileFilters(false)}
-                                className="flex-1 bg-primary text-white py-3 text-xs font-medium tracking-widest uppercase hover:bg-secondary cursor-pointer"
+                                className="flex-1 bg-primary text-white py-3 text-xs font-medium tracking-widest uppercase hover:bg-neutral-800 cursor-pointer"
                             >
                                 APPLY
                             </button>

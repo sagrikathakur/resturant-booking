@@ -37,9 +37,11 @@ export default function AuthModal() {
         let success: boolean;
 
         if (isLoginTab) {
-            success = await login(email, password);
+            success = await login(email.trim(), password);
         } else {
-            success = await register(name, email, password, phone, isOwner ? "owner" : "user");
+            // Clean phone input so invalid string/empty input isn't passed as phone number
+            const cleanedPhone = phone.trim() !== "" ? phone.trim() : undefined;
+            success = await register(name.trim(), email.trim(), password, cleanedPhone, isOwner ? "owner" : "user");
         }
 
         setFormLoading(false);
@@ -67,6 +69,7 @@ export default function AuthModal() {
                 {/* Header Tabs */}
                 <div className="flex border-b border-outline-variant/20">
                     <button
+                        type="button"
                         onClick={() => setIsLoginTab(true)}
                         className={`flex-1 py-5 text-center text-xs font-medium tracking-widest transition-soft cursor-pointer ${
                             isLoginTab
@@ -77,6 +80,7 @@ export default function AuthModal() {
                         SIGN IN
                     </button>
                     <button
+                        type="button"
                         onClick={() => setIsLoginTab(false)}
                         className={`flex-1 py-5 text-center text-xs font-medium tracking-widest transition-soft cursor-pointer ${
                             !isLoginTab
@@ -89,7 +93,7 @@ export default function AuthModal() {
                 </div>
 
                 {/* Form Content */}
-                <form onSubmit={handleSubmit} className="p-8 space-y-6 flex-1 flex flex-col justify-between">
+                <form onSubmit={handleSubmit} className="p-8 space-y-6 flex-1 flex flex-col justify-between" autoComplete="on">
                     <div>
                         <div className="text-center mb-8">
                             <h2 className="font-display text-2xl font-medium text-primary tracking-tight">Welcome to DimSum</h2>
@@ -111,6 +115,8 @@ export default function AuthModal() {
                                         </span>
                                         <input
                                             type="text"
+                                            name="name"
+                                            autoComplete="name"
                                             required={!isLoginTab}
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
@@ -132,6 +138,8 @@ export default function AuthModal() {
                                     </span>
                                     <input
                                         type="email"
+                                        name="email"
+                                        autoComplete="email"
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -153,6 +161,8 @@ export default function AuthModal() {
                                         </span>
                                         <input
                                             type="tel"
+                                            name="phone"
+                                            autoComplete="tel"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
                                             placeholder="+1 (555) 000-0000"
@@ -173,6 +183,8 @@ export default function AuthModal() {
                                     </span>
                                     <input
                                         type="password"
+                                        name="password"
+                                        autoComplete={isLoginTab ? "current-password" : "new-password"}
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}

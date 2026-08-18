@@ -1,1 +1,1 @@
-// User registration controller logic
+export * from "./userController.js";

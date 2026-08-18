@@ -1,6 +1,5 @@
 import { pool } from "../config/db.js";
 
-// CREATE - Add a new restaurant
 export const createRestaurant = async (data) => {
   const { name, address, city, phone, opening_time, closing_time } = data;
   const query = `
@@ -8,47 +7,33 @@ export const createRestaurant = async (data) => {
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
   `;
-  const values = [
-    name,
-    address,
-    city,
-    phone || null,
-    opening_time || null,
-    closing_time || null,
-  ];
-  const result = await pool.query(query, values);
-  return result.rows[0];
+  const res = await pool.query(query, [name, address, city, phone || null, opening_time || null, closing_time || null]);
+  return res.rows[0];
 };
 
-// READ - Get all restaurants (with optional city or name search)
 export const getAllRestaurants = async (city, search) => {
-  let query = `SELECT * FROM restaurants WHERE 1=1`;
-  const values = [];
+  let query = "SELECT * FROM restaurants WHERE 1=1";
+  const params = [];
 
   if (city) {
-    values.push(city);
-    query += ` AND LOWER(city) = LOWER($${values.length})`;
+    params.push(city);
+    query += ` AND LOWER(city) = LOWER($${params.length})`;
   }
-
   if (search) {
-    values.push(`%${search}%`);
-    query += ` AND (name ILIKE $${values.length} OR address ILIKE $${values.length})`;
+    params.push(`%${search}%`);
+    query += ` AND (name ILIKE $${params.length} OR address ILIKE $${params.length})`;
   }
+  query += " ORDER BY id ASC";
 
-  query += ` ORDER BY id ASC;`;
-
-  const result = await pool.query(query, values);
-  return result.rows;
+  const res = await pool.query(query, params);
+  return res.rows;
 };
 
-// READ - Get restaurant by ID
 export const getRestaurantById = async (id) => {
-  const query = `SELECT * FROM restaurants WHERE id = $1;`;
-  const result = await pool.query(query, [id]);
-  return result.rows[0];
+  const res = await pool.query("SELECT * FROM restaurants WHERE id = $1", [id]);
+  return res.rows[0];
 };
 
-// UPDATE - Update restaurant
 export const updateRestaurant = async (id, data) => {
   const { name, address, city, phone, opening_time, closing_time } = data;
   const query = `
@@ -63,22 +48,13 @@ export const updateRestaurant = async (id, data) => {
     WHERE id = $7
     RETURNING *;
   `;
-  const values = [
-    name || null,
-    address || null,
-    city || null,
-    phone || null,
-    opening_time || null,
-    closing_time || null,
-    id,
-  ];
-  const result = await pool.query(query, values);
-  return result.rows[0];
+  const res = await pool.query(query, [
+    name || null, address || null, city || null, phone || null, opening_time || null, closing_time || null, id
+  ]);
+  return res.rows[0];
 };
 
-// DELETE - Delete restaurant
 export const deleteRestaurant = async (id) => {
-  const query = `DELETE FROM restaurants WHERE id = $1 RETURNING *;`;
-  const result = await pool.query(query, [id]);
-  return result.rows[0];
+  const res = await pool.query("DELETE FROM restaurants WHERE id = $1 RETURNING *", [id]);
+  return res.rows[0];
 };

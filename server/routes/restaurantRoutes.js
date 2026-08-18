@@ -17,7 +17,6 @@ router.get("/:id", getRestaurantById);
 router.put("/:id", updateRestaurant);
 router.delete("/:id", deleteRestaurant);
 
-// Nested routes for restaurant tables and bookings
 router.get("/:restaurantId/tables", getTablesByRestaurant);
 router.get("/:restaurantId/bookings", getRestaurantBookings);
 

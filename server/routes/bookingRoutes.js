@@ -9,16 +9,19 @@ import {
   cancelBooking,
   deleteBooking,
 } from "../controllers/bookingController.js";
+import { verifyToken } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", createBooking);
+router.post("/", verifyToken, createBooking);
 router.get("/", getAllBookings);
+router.get("/my", verifyToken, getUserBookings);
+router.get("/my-bookings", verifyToken, getUserBookings);
 router.get("/:id", getBookingById);
 router.get("/user/:userId", getUserBookings);
 router.get("/restaurant/:restaurantId", getRestaurantBookings);
-router.patch("/:id/status", updateBookingStatus);
-router.patch("/:id/cancel", cancelBooking);
-router.delete("/:id", deleteBooking);
+router.patch("/:id/status", verifyToken, updateBookingStatus);
+router.patch("/:id/cancel", verifyToken, cancelBooking);
+router.delete("/:id", verifyToken, deleteBooking);
 
 export default router;

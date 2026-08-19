@@ -12,7 +12,7 @@ import AdminStats from "../../components/admin/AdminStats";
 import { dummyAdminStats, dummyRestaurant } from "../../assets/assets.ts";
 
 export default function AdminDashboard() {
-    const { logout } = useAppContext();
+    const { logout, fetchAdminStats } = useAppContext();
     const [restaurants, setRestaurants] = useState<any[]>([]);
     const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
@@ -21,12 +21,20 @@ export default function AdminDashboard() {
 
     const fetchAdminData = async () => {
         setRestaurants(dummyRestaurant);
-        setStats(dummyAdminStats);
+        const liveStats = await fetchAdminStats();
+        if (liveStats && liveStats.bookings) {
+            setStats(liveStats);
+        } else {
+            setStats(dummyAdminStats);
+        }
         setLoading(false);
     };
 
     const handleApproveStatus = async (restaurantId: string, status: "approved" | "rejected") => {
         console.log(restaurantId, status);
+        setRestaurants((prev) =>
+            prev.map((r) => (r._id === restaurantId ? { ...r, status } : r))
+        );
         setBtnLoading(null);
     };
 
@@ -85,7 +93,7 @@ export default function AdminDashboard() {
                                 }`}
                             >
                                 <BarChart3Icon size={14} />
-                                Analytics & Stats
+                                Telemetry & Analytics
                             </button>
                         </nav>
                     </aside>

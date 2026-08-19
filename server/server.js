@@ -6,6 +6,7 @@ import userRoutes from "./routes/userRoutes.js";
 import restaurantRoutes from "./routes/restaurantRoutes.js";
 import tableRoutes from "./routes/tableRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import statsRoutes from "./routes/statsRoutes.js";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/tables", tableRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/stats", statsRoutes);
 
 app.get("/api/test-db", async (req, res) => {
   try {

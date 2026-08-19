@@ -42,6 +42,8 @@ interface AppContextType {
     addBooking: (bookingData: any) => Promise<boolean>;
     cancelBooking: (bookingId: string) => Promise<boolean>;
     restaurants: any[];
+    fetchAdminStats: () => Promise<any>;
+    fetchOwnerStats: (restaurantId: string) => Promise<any>;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -267,6 +269,30 @@ export const AppContextProvider = ({ children }: Props) => {
         return true;
     };
 
+    const fetchAdminStats = async (): Promise<any> => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/stats/admin`);
+            if (res.ok) {
+                return await res.json();
+            }
+        } catch {
+            // Fallback to dummy stats
+        }
+        return null;
+    };
+
+    const fetchOwnerStats = async (restaurantId: string): Promise<any> => {
+        try {
+            const res = await fetch(`${API_BASE_URL}/stats/owner/${restaurantId}`);
+            if (res.ok) {
+                return await res.json();
+            }
+        } catch {
+            // Fallback to dummy stats
+        }
+        return null;
+    };
+
     const value: AppContextType = {
         user,
         token,
@@ -281,6 +307,8 @@ export const AppContextProvider = ({ children }: Props) => {
         addBooking,
         cancelBooking,
         restaurants,
+        fetchAdminStats,
+        fetchOwnerStats,
     };
 
     return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

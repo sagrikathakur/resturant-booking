@@ -13,15 +13,22 @@ import OwnerProfileDetails from "../../components/owner/OwnerProfileDetails";
 import { dummyMyBookingsData, dummyRestaurant } from "../../assets/assets.ts";
 
 export default function OwnerDashboard() {
-    const { logout } = useAppContext();
+    const { logout, fetchOwnerStats } = useAppContext();
     const [restaurant, setRestaurant] = useState<any>(null);
     const [bookings, setBookings] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<"bookings" | "details">("bookings");
 
     const fetchOwnerData = async () => {
-        setRestaurant(dummyRestaurant[0]);
-        setBookings(dummyMyBookingsData);
+        const activeRest = dummyRestaurant[0];
+        setRestaurant(activeRest);
+
+        const liveStats = await fetchOwnerStats(activeRest._id);
+        if (liveStats && liveStats.bookings && liveStats.bookings.length > 0) {
+            setBookings(liveStats.bookings);
+        } else {
+            setBookings(dummyMyBookingsData);
+        }
         setLoading(false);
     };
 
@@ -42,7 +49,7 @@ export default function OwnerDashboard() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-outline-variant/10 pb-8 mb-8">
                     <div>
                         <h1 className="font-display text-2xl md:text-3xl text-primary">Restaurant Portal</h1>
-                        <p className="text-xs text-black/55 mt-1.5">Review capacity limits and process live reservations.</p>
+                        <p className="text-xs text-black/55 mt-1.5">Review capacity limits, track cover metrics, and process live reservations.</p>
                     </div>
                     <button
                         onClick={logout}
@@ -72,8 +79,8 @@ export default function OwnerDashboard() {
                                 </span>
                                 <div>
                                     <h4 className="font-display font-medium text-primary text-base line-clamp-1">{restaurant.name}</h4>
-                                    <span className="text-[9px] text-primary tracking-widest uppercase bg-black/5 px-2 py-0.5 rounded-sm inline-block mt-0.5">
-                                        APPROVED
+                                    <span className="text-[9px] text-primary tracking-widest uppercase bg-black/5 px-2 py-0.5 rounded-sm inline-block mt-0.5 font-semibold">
+                                        APPROVED PARTNER
                                     </span>
                                 </div>
                             </div>
@@ -86,7 +93,7 @@ export default function OwnerDashboard() {
                                     }`}
                                 >
                                     <CalendarIcon size={14} />
-                                    Bookings ({bookings.length})
+                                    Bookings & Telemetry ({bookings.length})
                                 </button>
 
                                 <button
@@ -96,7 +103,7 @@ export default function OwnerDashboard() {
                                     }`}
                                 >
                                     <SettingsIcon size={14} />
-                                    Profile Details
+                                    Profile & Capacity
                                 </button>
                             </nav>
                         </aside>

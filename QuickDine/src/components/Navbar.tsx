@@ -31,8 +31,10 @@ export default function Navbar() {
     const handleDashboardClick = () => {
         if (!user) {
             setAuthModalOpen(true);
+        } else if (user.role === "owner") {
+            navigate("/owner/dashboard");
         } else {
-            navigate("/dashboard");
+            toast.error("Dashboard access is reserved for Restaurant Owners.");
         }
     };
 
@@ -89,20 +91,23 @@ export default function Navbar() {
                         >
                             Restaurants
                         </Link>
-                        <button
-                            onClick={handleDashboardClick}
-                            className={`text-xs font-medium tracking-wider uppercase transition-colors pb-1 border-b-2 cursor-pointer text-left ${
-                                location.pathname === "/dashboard"
-                                    ? isTransparent
-                                        ? "text-white border-white font-semibold"
-                                        : "text-primary border-primary font-semibold"
-                                    : isTransparent
-                                    ? "text-white/80 hover:text-white border-transparent"
-                                    : "text-black/60 hover:text-primary border-transparent"
-                            }`}
-                        >
-                            My Bookings
-                        </button>
+
+                        {user?.role === "owner" && (
+                            <button
+                                onClick={handleDashboardClick}
+                                className={`text-xs font-medium tracking-wider uppercase transition-colors pb-1 border-b-2 cursor-pointer text-left ${
+                                    location.pathname.includes("dashboard")
+                                        ? isTransparent
+                                            ? "text-white border-white font-semibold"
+                                            : "text-primary border-primary font-semibold"
+                                        : isTransparent
+                                        ? "text-white/80 hover:text-white border-transparent"
+                                        : "text-black/60 hover:text-primary border-transparent"
+                                }`}
+                            >
+                                Dashboard
+                            </button>
+                        )}
                     </div>
                 </div>
 
@@ -134,23 +139,19 @@ export default function Navbar() {
                                     <div className="px-4 py-2.5 border-b border-outline-variant/10">
                                         <p className="text-xs font-semibold text-primary truncate">{user.name}</p>
                                         <p className="text-[11px] text-black/55 truncate">{user.email}</p>
+                                        <span className="inline-block text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 mt-1 bg-surface rounded text-primary">
+                                            Role: {user.role}
+                                        </span>
                                     </div>
-                                    <button
-                                        onClick={handleDashboardClick}
-                                        className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-black/60 hover:text-primary hover:bg-surface transition-colors cursor-pointer text-left"
-                                    >
-                                        <LayoutDashboard size={14} />
-                                        My Bookings
-                                    </button>
 
-                                    {user.role === "admin" && (
-                                        <Link
-                                            to="/admin/dashboard"
-                                            className="flex items-center gap-3 px-4 py-2.5 text-xs text-black/60 hover:text-primary hover:bg-surface transition-colors cursor-pointer"
+                                    {user.role === "owner" && (
+                                        <button
+                                            onClick={handleDashboardClick}
+                                            className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-black/60 hover:text-primary hover:bg-surface transition-colors cursor-pointer text-left"
                                         >
-                                            <ShieldCheck size={14} />
-                                            Admin Panel
-                                        </Link>
+                                            <LayoutDashboard size={14} />
+                                            Dashboard
+                                        </button>
                                     )}
 
                                     {user.role === "owner" && (
@@ -217,12 +218,14 @@ export default function Navbar() {
                     <Link to="/search" className="text-base text-on-surface hover:text-primary">
                         Restaurants
                     </Link>
-                    <button
-                        onClick={handleDashboardClick}
-                        className="text-base text-on-surface hover:text-primary text-left cursor-pointer"
-                    >
-                        Reservations
-                    </button>
+                    {user?.role === "owner" && (
+                        <button
+                            onClick={handleDashboardClick}
+                            className="text-base text-on-surface hover:text-primary text-left cursor-pointer"
+                        >
+                            Dashboard
+                        </button>
+                    )}
 
                     <div className="border-t border-outline-variant/10 my-2"></div>
 
@@ -235,19 +238,14 @@ export default function Navbar() {
                                 <div>
                                     <p className="text-sm font-semibold text-primary">{user.name}</p>
                                     <p className="text-xs text-black/55">{user.email}</p>
+                                    <span className="inline-block text-[9px] font-semibold uppercase tracking-wider px-1.5 py-0.5 mt-0.5 bg-surface rounded text-primary">
+                                        Role: {user.role}
+                                    </span>
                                 </div>
                             </div>
-                            <Link to="/dashboard" className="text-sm font-medium text-black/60 hover:text-primary">
-                                My Bookings
-                            </Link>
-                            {user.role === "admin" && (
-                                <Link to="/admin/dashboard" className="text-sm font-medium text-black/60 hover:text-primary">
-                                    Admin Console
-                                </Link>
-                            )}
                             {user.role === "owner" && (
                                 <Link to="/owner/dashboard" className="text-sm font-medium text-black/60 hover:text-primary">
-                                    Owner Console
+                                    Owner Portal
                                 </Link>
                             )}
                             <button onClick={logout} className="text-sm font-medium text-error text-left cursor-pointer">

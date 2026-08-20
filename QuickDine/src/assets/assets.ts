@@ -390,26 +390,4 @@ export const dummyMyBookingsData = [
     },
 ];
 
-export const dummyAdminStats = {
-    users: { totalUsers: 1, totalOwners: 1, total: 2 },
-    restaurants: { total: 6 },
-    bookings: { total: 1 },
-    latestBookings: [
-        {
-            _id: "6a34f88580587be1dada87ba",
-            user: { _id: "6a34ef24a4d96fc34d9c906b", name: "Marc Dubois", email: "owner@example.com" },
-            restaurant: { _id: "6a34ef24a4d96fc34d9c906d", name: "Kuro Omakase" },
-            date: "2026-06-19T00:00:00.000Z",
-            time: "20:30",
-            guests: 2,
-            occasion: "",
-            specialRequests: "",
-            status: "confirmed",
-            createdAt: "2026-06-19T08:06:29.155Z",
-            updatedAt: "2026-06-19T08:06:29.155Z",
-            bookingId: "GR-EB39904C",
-        },
-    ],
-};
-
 export const dummyFeaturedRestaurants = [dummyRestaurant[0], dummyRestaurant[1], dummyRestaurant[2]];

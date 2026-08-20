@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { X, Mail, Lock, User, Phone } from "lucide-react";
 
 export default function AuthModal() {
     const { isAuthModalOpen, setAuthModalOpen, login, register } = useAppContext();
     const [isLoginTab, setIsLoginTab] = useState<boolean>(true);
+    const navigate = useNavigate();
 
     // Form states
     const [name, setName] = useState("");
@@ -34,19 +36,26 @@ export default function AuthModal() {
         e.preventDefault();
         setFormLoading(true);
 
-        let success: boolean;
-
         if (isLoginTab) {
-            success = await login(email.trim(), password);
+            const userObj = await login(email.trim(), password);
+            setFormLoading(false);
+            if (userObj) {
+                handleClose();
+                if (userObj.role === "owner") {
+                    navigate("/owner/dashboard");
+                }
+            }
         } else {
-            // Clean phone input so invalid string/empty input isn't passed as phone number
             const cleanedPhone = phone.trim() !== "" ? phone.trim() : undefined;
-            success = await register(name.trim(), email.trim(), password, cleanedPhone, isOwner ? "owner" : "user");
-        }
-
-        setFormLoading(false);
-        if (success) {
-            handleClose();
+            const targetRole = isOwner ? "owner" : "user";
+            const userObj = await register(name.trim(), email.trim(), password, cleanedPhone, targetRole);
+            setFormLoading(false);
+            if (userObj) {
+                handleClose();
+                if (userObj.role === "owner") {
+                    navigate("/owner/dashboard");
+                }
+            }
         }
     };
 

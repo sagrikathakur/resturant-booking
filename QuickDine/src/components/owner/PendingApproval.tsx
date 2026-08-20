@@ -12,7 +12,7 @@ export default function PendingApproval({ restaurant }: PendingApprovalProps) {
             <h2 className="font-display text-xl text-primary">Registration Pending Approval</h2>
             <p className="text-sm text-black/55 leading-relaxed">
                 Thank you for registering <span className="text-black">{restaurant?.name}</span>. Your profile details and slots listing are
-                currently under review by our Master Admin.
+                currently under review by our team.
             </p>
             <div className="border border-outline-variant/10 bg-surface-container-low/20 p-4 rounded-sm text-left space-y-1 text-xs text-black/65">
                 <p>

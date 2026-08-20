@@ -11,7 +11,7 @@ export interface UserType {
     name: string;
     email: string;
     phone?: string;
-    role: "user" | "admin" | "owner";
+    role: "user" | "owner";
 }
 
 export interface BookingType {
@@ -35,14 +35,13 @@ interface AppContextType {
     isAuthenticated: boolean;
     isAuthModalOpen: boolean;
     setAuthModalOpen: (open: boolean) => void;
-    login: (email: string, password: string) => Promise<boolean>;
-    register: (name: string, email: string, password: string, phone?: string, role?: string) => Promise<boolean>;
+    login: (email: string, password: string) => Promise<UserType | null>;
+    register: (name: string, email: string, password: string, phone?: string, role?: string) => Promise<UserType | null>;
     logout: () => void;
     myBookings: BookingType[];
     addBooking: (bookingData: any) => Promise<boolean>;
     cancelBooking: (bookingId: string) => Promise<boolean>;
     restaurants: any[];
-    fetchAdminStats: () => Promise<any>;
     fetchOwnerStats: (restaurantId: string) => Promise<any>;
 }
 
@@ -128,7 +127,7 @@ export const AppContextProvider = ({ children }: Props) => {
         fetchInitialData();
     }, [token]);
 
-    const login = async (email: string, password: string): Promise<boolean> => {
+    const login = async (email: string, password: string): Promise<UserType | null> => {
         try {
             const response = await fetch(`${API_BASE_URL}/auth/login`, {
                 method: "POST",
@@ -138,27 +137,41 @@ export const AppContextProvider = ({ children }: Props) => {
 
             if (response.ok) {
                 const data = await response.json();
+                const userObj: UserType = {
+                    _id: data._id || data.id,
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                    role: data.role || "user",
+                };
                 setToken(data.token);
-                setUser(data);
+                setUser(userObj);
                 localStorage.setItem("token", data.token);
-                toast.success(`Welcome back, ${data.name}!`);
-                return true;
+                toast.success(`Welcome back, ${userObj.name}!`);
+                return userObj;
             } else {
                 const err = await response.json();
                 toast.error(err.message || "Failed to login");
             }
         } catch {
             // Fallback for offline local demo run
+            const demoUserObj: UserType = {
+                _id: dummyUser._id,
+                name: dummyUser.name,
+                email: dummyUser.email,
+                phone: dummyUser.phone,
+                role: (dummyUser.role as any) || "user",
+            };
             setToken(dummyUser.token);
-            setUser(dummyUser as any);
+            setUser(demoUserObj);
             localStorage.setItem("token", dummyUser.token);
-            toast.success(`Logged in as ${dummyUser.name} (Demo Mode)`);
-            return true;
+            toast.success(`Logged in as ${demoUserObj.name} (Demo Mode)`);
+            return demoUserObj;
         }
-        return false;
+        return null;
     };
 
-    const register = async (name: string, email: string, password: string, phone?: string, role?: string): Promise<boolean> => {
+    const register = async (name: string, email: string, password: string, phone?: string, role?: string): Promise<UserType | null> => {
         try {
             const response = await fetch(`${API_BASE_URL}/auth/register`, {
                 method: "POST",
@@ -168,23 +181,37 @@ export const AppContextProvider = ({ children }: Props) => {
 
             if (response.ok) {
                 const data = await response.json();
+                const userObj: UserType = {
+                    _id: data._id || data.id,
+                    name: data.name,
+                    email: data.email,
+                    phone: data.phone,
+                    role: data.role || (role as any) || "user",
+                };
                 setToken(data.token);
-                setUser(data);
+                setUser(userObj);
                 localStorage.setItem("token", data.token);
                 toast.success("Account created successfully!");
-                return true;
+                return userObj;
             } else {
                 const err = await response.json();
                 toast.error(err.message || "Registration failed");
             }
         } catch {
+            const userObj: UserType = {
+                _id: dummyUser._id,
+                name: name,
+                email: email,
+                phone: phone,
+                role: (role as any) || "user",
+            };
             setToken(dummyUser.token);
-            setUser({ ...dummyUser, name, email, role: (role as any) || "user" });
+            setUser(userObj);
             localStorage.setItem("token", dummyUser.token);
             toast.success("Account created successfully! (Demo Mode)");
-            return true;
+            return userObj;
         }
-        return false;
+        return null;
     };
 
     const logout = () => {
@@ -269,18 +296,6 @@ export const AppContextProvider = ({ children }: Props) => {
         return true;
     };
 
-    const fetchAdminStats = async (): Promise<any> => {
-        try {
-            const res = await fetch(`${API_BASE_URL}/stats/admin`);
-            if (res.ok) {
-                return await res.json();
-            }
-        } catch {
-            // Fallback to dummy stats
-        }
-        return null;
-    };
-
     const fetchOwnerStats = async (restaurantId: string): Promise<any> => {
         try {
             const res = await fetch(`${API_BASE_URL}/stats/owner/${restaurantId}`);
@@ -307,7 +322,6 @@ export const AppContextProvider = ({ children }: Props) => {
         addBooking,
         cancelBooking,
         restaurants,
-        fetchAdminStats,
         fetchOwnerStats,
     };
 

@@ -86,7 +86,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
             }
 
             setRestaurant(dummyRestaurant[0]);
-            toast.success("Restaurant profile submitted successfully! Awaiting Admin approval.");
+            toast.success("Restaurant profile submitted successfully!");
         } catch (error: any) {
             toast.error(error?.response?.data?.message || "Failed to register restaurant");
         } finally {
@@ -100,7 +100,7 @@ export default function RestaurantWizard({ setRestaurant }: RestaurantWizardProp
                 <Utensils size={36} className="mx-auto text-primary" />
                 <h2 className="font-display text-xl font-medium text-primary">Setup Restaurant Profile</h2>
                 <p className="text-xs text-black/55">
-                    Please create your restaurant details. Once submitted, it will be pending approval from the Admin.
+                    Please create your restaurant details to setup your profile.
                 </p>
             </div>
 

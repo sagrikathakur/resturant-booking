@@ -3,9 +3,7 @@ import Home from "./pages/Home";
 import Search from "./pages/Search";
 import RestaurantDetail from "./pages/RestaurantDetail";
 import BookingConfirmation from "./pages/BookingConfirmation";
-import Dashboard from "./pages/Dashboard";
 import OwnerDashboard from "./pages/owner/OwnerDashboard";
-import AdminDashboard from "./pages/admin/AdminDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 
@@ -41,8 +39,8 @@ export default function App() {
                 <Route 
                     path="/dashboard" 
                     element={
-                        <ProtectedRoute>
-                            <Dashboard />
+                        <ProtectedRoute allowedRoles={["owner"]}>
+                            <OwnerDashboard />
                         </ProtectedRoute>
                     } 
                 />
@@ -51,14 +49,6 @@ export default function App() {
                     element={
                         <ProtectedRoute allowedRoles={["owner"]}>
                             <OwnerDashboard />
-                        </ProtectedRoute>
-                    } 
-                />
-                <Route 
-                    path="/admin/dashboard" 
-                    element={
-                        <ProtectedRoute allowedRoles={["admin"]}>
-                            <AdminDashboard />
                         </ProtectedRoute>
                     } 
                 />

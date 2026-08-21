@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { guestDetailsSchema } from "../../lib/validations";
 
 interface BookingFormProps {
     name: string;
@@ -29,11 +30,38 @@ export default function BookingForm({
     confirming,
     onSubmit,
 }: BookingFormProps) {
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setErrors({});
+
+        const validationResult = guestDetailsSchema.safeParse({
+            name,
+            email,
+            phone,
+            occasion,
+            specialRequests,
+        });
+
+        if (!validationResult.success) {
+            const formattedErrors: Record<string, string> = {};
+            validationResult.error.issues.forEach((issue) => {
+                const field = issue.path[0]?.toString() || "form";
+                formattedErrors[field] = issue.message;
+            });
+            setErrors(formattedErrors);
+            return;
+        }
+
+        onSubmit(e);
+    };
+
     return (
         <div className="bg-white border border-outline-variant/20 p-8 rounded-md shadow-sm text-left">
             <h3 className="font-display text-lg font-semibold text-primary mb-6 pb-3 border-b border-outline-variant/10">Guest Details</h3>
 
-            <form onSubmit={onSubmit} className="space-y-6">
+            <form onSubmit={handleFormSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {/* Name */}
                     <div className="space-y-1">
@@ -41,10 +69,15 @@ export default function BookingForm({
                         <input
                             type="text"
                             value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
-                            required
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                if (errors.name) setErrors((prev) => ({ ...prev, name: "" }));
+                            }}
+                            className={`w-full pb-2 pt-1 text-sm bg-transparent border-b transition-colors focus:outline-none ${
+                                errors.name ? "border-red-500 text-red-900" : "border-outline-variant/60 focus:border-primary"
+                            }`}
                         />
+                        {errors.name && <p className="text-[11px] text-red-500 mt-0.5">{errors.name}</p>}
                     </div>
 
                     {/* Email */}
@@ -53,10 +86,15 @@ export default function BookingForm({
                         <input
                             type="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
-                            required
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                                if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
+                            }}
+                            className={`w-full pb-2 pt-1 text-sm bg-transparent border-b transition-colors focus:outline-none ${
+                                errors.email ? "border-red-500 text-red-900" : "border-outline-variant/60 focus:border-primary"
+                            }`}
                         />
+                        {errors.email && <p className="text-[11px] text-red-500 mt-0.5">{errors.email}</p>}
                     </div>
                 </div>
 
@@ -67,10 +105,15 @@ export default function BookingForm({
                         <input
                             type="tel"
                             value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            className="w-full pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
-                            required
+                            onChange={(e) => {
+                                setPhone(e.target.value);
+                                if (errors.phone) setErrors((prev) => ({ ...prev, phone: "" }));
+                            }}
+                            className={`w-full pb-2 pt-1 text-sm bg-transparent border-b transition-colors focus:outline-none ${
+                                errors.phone ? "border-red-500 text-red-900" : "border-outline-variant/60 focus:border-primary"
+                            }`}
                         />
+                        {errors.phone && <p className="text-[11px] text-red-500 mt-0.5">{errors.phone}</p>}
                     </div>
 
                     {/* Occasion */}

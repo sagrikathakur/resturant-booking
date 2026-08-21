@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { X, Mail, Lock, User, Phone } from "lucide-react";
+import { loginFormSchema, registerFormSchema } from "../lib/validations";
 
 export default function AuthModal() {
     const { isAuthModalOpen, setAuthModalOpen, login, register } = useAppContext();
@@ -15,6 +16,8 @@ export default function AuthModal() {
     const [phone, setPhone] = useState("");
     const [isOwner, setIsOwner] = useState<boolean>(false);
 
+    // Validation errors state
+    const [errors, setErrors] = useState<Record<string, string>>({});
     const [formLoading, setFormLoading] = useState(false);
 
     if (!isAuthModalOpen) return null;
@@ -25,6 +28,7 @@ export default function AuthModal() {
         setPassword("");
         setPhone("");
         setIsOwner(false);
+        setErrors({});
     };
 
     const handleClose = () => {
@@ -32,11 +36,32 @@ export default function AuthModal() {
         setAuthModalOpen(false);
     };
 
+    const handleTabSwitch = (toLogin: boolean) => {
+        setIsLoginTab(toLogin);
+        setErrors({});
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setFormLoading(true);
+        setErrors({});
 
         if (isLoginTab) {
+            const validationResult = loginFormSchema.safeParse({
+                email: email.trim(),
+                password,
+            });
+
+            if (!validationResult.success) {
+                const formattedErrors: Record<string, string> = {};
+                validationResult.error.issues.forEach((issue) => {
+                    const field = issue.path[0]?.toString() || "form";
+                    formattedErrors[field] = issue.message;
+                });
+                setErrors(formattedErrors);
+                return;
+            }
+
+            setFormLoading(true);
             const userObj = await login(email.trim(), password);
             setFormLoading(false);
             if (userObj) {
@@ -48,6 +73,26 @@ export default function AuthModal() {
         } else {
             const cleanedPhone = phone.trim() !== "" ? phone.trim() : undefined;
             const targetRole = isOwner ? "owner" : "user";
+
+            const validationResult = registerFormSchema.safeParse({
+                name: name.trim(),
+                email: email.trim(),
+                password,
+                phone: cleanedPhone,
+                role: targetRole,
+            });
+
+            if (!validationResult.success) {
+                const formattedErrors: Record<string, string> = {};
+                validationResult.error.issues.forEach((issue) => {
+                    const field = issue.path[0]?.toString() || "form";
+                    formattedErrors[field] = issue.message;
+                });
+                setErrors(formattedErrors);
+                return;
+            }
+
+            setFormLoading(true);
             const userObj = await register(name.trim(), email.trim(), password, cleanedPhone, targetRole);
             setFormLoading(false);
             if (userObj) {
@@ -79,7 +124,7 @@ export default function AuthModal() {
                 <div className="flex border-b border-outline-variant/20">
                     <button
                         type="button"
-                        onClick={() => setIsLoginTab(true)}
+                        onClick={() => handleTabSwitch(true)}
                         className={`flex-1 py-5 text-center text-xs font-medium tracking-widest transition-soft cursor-pointer ${
                             isLoginTab
                                 ? "text-primary border-b-2 border-primary bg-surface-container-lowest"
@@ -90,7 +135,7 @@ export default function AuthModal() {
                     </button>
                     <button
                         type="button"
-                        onClick={() => setIsLoginTab(false)}
+                        onClick={() => handleTabSwitch(false)}
                         className={`flex-1 py-5 text-center text-xs font-medium tracking-widest transition-soft cursor-pointer ${
                             !isLoginTab
                                 ? "text-primary border-b-2 border-primary bg-surface-container-lowest"
@@ -126,13 +171,18 @@ export default function AuthModal() {
                                             type="text"
                                             name="name"
                                             autoComplete="name"
-                                            required={!isLoginTab}
                                             value={name}
-                                            onChange={(e) => setName(e.target.value)}
+                                            onChange={(e) => {
+                                                setName(e.target.value);
+                                                if (errors.name) setErrors((prev) => ({ ...prev, name: "" }));
+                                            }}
                                             placeholder="Sarah Jenkins"
-                                            className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
+                                            className={`w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b transition-colors focus:outline-none ${
+                                                errors.name ? "border-red-500 text-red-900" : "border-outline-variant/60 focus:border-primary"
+                                            }`}
                                         />
                                     </div>
+                                    {errors.name && <p className="text-[11px] text-red-500 text-left mt-0.5">{errors.name}</p>}
                                 </div>
                             )}
 
@@ -149,13 +199,18 @@ export default function AuthModal() {
                                         type="email"
                                         name="email"
                                         autoComplete="email"
-                                        required
                                         value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        onChange={(e) => {
+                                            setEmail(e.target.value);
+                                            if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
+                                        }}
                                         placeholder="you@example.com"
-                                        className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
+                                        className={`w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b transition-colors focus:outline-none ${
+                                            errors.email ? "border-red-500 text-red-900" : "border-outline-variant/60 focus:border-primary"
+                                        }`}
                                     />
                                 </div>
+                                {errors.email && <p className="text-[11px] text-red-500 text-left mt-0.5">{errors.email}</p>}
                             </div>
 
                             {/* Phone Field (Register Only) */}
@@ -173,11 +228,17 @@ export default function AuthModal() {
                                             name="phone"
                                             autoComplete="tel"
                                             value={phone}
-                                            onChange={(e) => setPhone(e.target.value)}
+                                            onChange={(e) => {
+                                                setPhone(e.target.value);
+                                                if (errors.phone) setErrors((prev) => ({ ...prev, phone: "" }));
+                                            }}
                                             placeholder="+1 (555) 000-0000"
-                                            className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
+                                            className={`w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b transition-colors focus:outline-none ${
+                                                errors.phone ? "border-red-500 text-red-900" : "border-outline-variant/60 focus:border-primary"
+                                            }`}
                                         />
                                     </div>
+                                    {errors.phone && <p className="text-[11px] text-red-500 text-left mt-0.5">{errors.phone}</p>}
                                 </div>
                             )}
 
@@ -194,13 +255,18 @@ export default function AuthModal() {
                                         type="password"
                                         name="password"
                                         autoComplete={isLoginTab ? "current-password" : "new-password"}
-                                        required
                                         value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                            if (errors.password) setErrors((prev) => ({ ...prev, password: "" }));
+                                        }}
                                         placeholder="••••••••"
-                                        className="w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b border-outline-variant/60 focus:border-primary focus:outline-none transition-colors"
+                                        className={`w-full pl-7 pb-2 pt-1 text-sm bg-transparent border-b transition-colors focus:outline-none ${
+                                            errors.password ? "border-red-500 text-red-900" : "border-outline-variant/60 focus:border-primary"
+                                        }`}
                                     />
                                 </div>
+                                {errors.password && <p className="text-[11px] text-red-500 text-left mt-0.5">{errors.password}</p>}
                             </div>
 
                             {/* Owner Checkbox (Register Only) */}

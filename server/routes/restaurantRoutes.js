@@ -8,13 +8,15 @@ import {
 } from "../controllers/restaurantController.js";
 import { getTablesByRestaurant } from "../controllers/tableController.js";
 import { getRestaurantBookings } from "../controllers/bookingController.js";
+import { validateBody } from "../middleware/validate.js";
+import { createRestaurantSchema, updateRestaurantSchema } from "../validations/restaurantValidation.js";
 
 const router = express.Router();
 
-router.post("/", createRestaurant);
+router.post("/", validateBody(createRestaurantSchema), createRestaurant);
 router.get("/", getRestaurants);
 router.get("/:id", getRestaurantById);
-router.put("/:id", updateRestaurant);
+router.put("/:id", validateBody(updateRestaurantSchema), updateRestaurant);
 router.delete("/:id", deleteRestaurant);
 
 router.get("/:restaurantId/tables", getTablesByRestaurant);

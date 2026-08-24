@@ -7,6 +7,7 @@ export const validateBody = (schema) => (req, res, next) => {
     const formattedErrors = result.error.errors.map((err) => ({
       field: err.path.join("."),
       message: err.message,
+
     }));
 
     return res.status(400).json({

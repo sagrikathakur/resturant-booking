@@ -75,11 +75,15 @@ export default function BookingConfirmation() {
             setConfirming(true);
 
             const bookingPayload = {
-                restaurantId: restaurant._id,
+                restaurant_id: restaurant.id || restaurant._id,
+                restaurantId: restaurant._id || restaurant.id,
                 restaurantObj: restaurant,
-                date: new Date(date).toISOString(),
+                date,
+                booking_date: date,
                 time: slot,
+                booking_time: slot,
                 guests: Number(guests),
+                number_of_guests: Number(guests),
                 occasion,
                 specialRequests,
             };

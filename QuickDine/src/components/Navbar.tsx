@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { Menu, X, LogOut, LayoutDashboard, ShieldCheck } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function Navbar() {
     const { user, logout, setAuthModalOpen } = useAppContext();
@@ -34,7 +35,7 @@ export default function Navbar() {
         } else if (user.role === "owner") {
             navigate("/owner/dashboard");
         } else {
-            toast.error("Dashboard access is reserved for Restaurant Owners.");
+            navigate("/dashboard");
         }
     };
 
@@ -92,7 +93,7 @@ export default function Navbar() {
                             Restaurants
                         </Link>
 
-                        {user?.role === "owner" && (
+                        {user && (
                             <button
                                 onClick={handleDashboardClick}
                                 className={`text-xs font-medium tracking-wider uppercase transition-colors pb-1 border-b-2 cursor-pointer text-left ${
@@ -144,7 +145,7 @@ export default function Navbar() {
                                         </span>
                                     </div>
 
-                                    {user.role === "owner" && (
+                                    {user && (
                                         <button
                                             onClick={handleDashboardClick}
                                             className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-black/60 hover:text-primary hover:bg-surface transition-colors cursor-pointer text-left"
@@ -218,7 +219,7 @@ export default function Navbar() {
                     <Link to="/search" className="text-base text-on-surface hover:text-primary">
                         Restaurants
                     </Link>
-                    {user?.role === "owner" && (
+                    {user && (
                         <button
                             onClick={handleDashboardClick}
                             className="text-base text-on-surface hover:text-primary text-left cursor-pointer"

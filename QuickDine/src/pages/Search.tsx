@@ -8,8 +8,11 @@ import AuthModal from "../components/AuthModal";
 import { SlidersHorizontal, Search as SearchIcon, X, Check, MapPin, SearchXIcon } from "lucide-react";
 import { dummyRestaurant } from "../assets/assets.ts";
 
+import { useAppContext } from "../context/AppContext";
+
 export default function Search() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const { restaurants: contextRestaurants } = useAppContext();
     const [restaurants, setRestaurants] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -37,12 +40,43 @@ export default function Search() {
 
     useEffect(() => {
         const fetchRestaurants = async () => {
-            setRestaurants(dummyRestaurant);
+            const allRest = contextRestaurants && contextRestaurants.length > 0 ? contextRestaurants : dummyRestaurant;
+            let filtered = [...allRest];
+
+            if (searchVal) {
+                const s = searchVal.toLowerCase();
+                filtered = filtered.filter(
+                    (r) => r.name?.toLowerCase().includes(s) || r.cuisine?.toLowerCase().includes(s) || r.address?.toLowerCase().includes(s)
+                );
+            }
+
+            if (locationVal) {
+                const loc = locationVal.toLowerCase();
+                filtered = filtered.filter(
+                    (r) => r.location?.toLowerCase().includes(loc) || r.address?.toLowerCase().includes(loc) || r.city?.toLowerCase().includes(loc)
+                );
+            }
+
+            if (cuisinesSelected.length > 0) {
+                filtered = filtered.filter((r) => cuisinesSelected.some((c) => r.cuisine?.toLowerCase().includes(c.toLowerCase())));
+            }
+
+            if (pricesSelected.length > 0) {
+                filtered = filtered.filter((r) => pricesSelected.includes(r.priceRange));
+            }
+
+            if (sortVal === "price_low") {
+                filtered.sort((a, b) => (a.priceRange?.length || 0) - (b.priceRange?.length || 0));
+            } else if (sortVal === "price_high") {
+                filtered.sort((a, b) => (b.priceRange?.length || 0) - (a.priceRange?.length || 0));
+            }
+
+            setRestaurants(filtered);
             setLoading(false);
         };
 
         fetchRestaurants();
-    }, [searchParams]);
+    }, [searchParams, contextRestaurants, searchVal, locationVal, sortVal]);
 
     const handleTextSubmit = (e: React.FormEvent) => {
         e.preventDefault();

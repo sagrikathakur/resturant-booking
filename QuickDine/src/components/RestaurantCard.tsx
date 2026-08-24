@@ -95,16 +95,16 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                     <div className="border-t border-outline-variant/10 my-3"></div>
                     <span className="block text-[9px] font-medium text-black/55 tracking-wider uppercase mb-2">QUICK RESERVATION</span>
                     <div className="flex flex-wrap gap-1.5">
-                        {restaurant.availableSlots
-                            .filter((slot) => {
+                        {(() => {
+                            const upcoming = restaurant.availableSlots.filter((slot) => {
                                 const [slotHour, slotMinute] = slot.split(":").map(Number);
                                 const now = new Date();
                                 const currentHour = now.getHours();
                                 const currentMinute = now.getMinutes();
                                 return slotHour > currentHour || (slotHour === currentHour && slotMinute > currentMinute);
-                            })
-                            .slice(0, 3)
-                            .map((slot) => (
+                            });
+                            const slotsToDisplay = upcoming.length > 0 ? upcoming : restaurant.availableSlots;
+                            return slotsToDisplay.slice(0, 3).map((slot) => (
                                 <button
                                     key={slot}
                                     onClick={(e) => handleSlotClick(e, slot)}
@@ -112,7 +112,8 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                                 >
                                     {slot}
                                 </button>
-                            ))}
+                            ));
+                        })()}
                         <Link
                             to={`/restaurant/${restaurant.slug}`}
                             className="text-[10px] font-medium border border-outline-variant/20 px-3 py-1.5 transition-colors cursor-pointer text-primary hover:bg-primary hover:text-white"

@@ -68,6 +68,8 @@ export default function AuthModal() {
                 handleClose();
                 if (userObj.role === "owner") {
                     navigate("/owner/dashboard");
+                } else {
+                    navigate("/dashboard");
                 }
             }
         } else {
@@ -99,6 +101,8 @@ export default function AuthModal() {
                 handleClose();
                 if (userObj.role === "owner") {
                     navigate("/owner/dashboard");
+                } else {
+                    navigate("/dashboard");
                 }
             }
         }

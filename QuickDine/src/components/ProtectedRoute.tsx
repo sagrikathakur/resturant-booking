@@ -23,7 +23,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
                     <ShieldAlert size={40} className="text-primary mb-6" />
                     <h2 className="font-display text-2xl text-primary mb-3">Login to Continue</h2>
                     <p className="text-sm text-black/55 mb-8 leading-relaxed">
-                        Dashboard access is reserved exclusively for registered Restaurant Owners and Managers.
+                        Please log in to your account to continue and access your reservations.
                     </p>
 
                     <div className="flex flex-col gap-3 w-full">
@@ -47,7 +47,7 @@ export default function ProtectedRoute({ children, allowedRoles }: ProtectedRout
                     <ShieldAlert size={40} className="text-error mb-6" />
                     <h2 className="font-display text-2xl text-primary mb-3">Access Denied</h2>
                     <p className="text-sm text-black/55 mb-6 leading-relaxed">
-                        Dashboard access is reserved exclusively for Restaurant Owners & Managers. Standard user accounts cannot access the dashboard.
+                        You do not have permission to access this portal.
                     </p>
                     <Link
                         to="/"

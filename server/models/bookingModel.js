@@ -28,9 +28,9 @@ export const getBookingById = async (id) => {
            r.name AS restaurant_name, r.address AS restaurant_address, r.city AS restaurant_city,
            t.table_number, t.capacity AS table_capacity
     FROM bookings b
-    JOIN users u ON b.user_id = u.id
-    JOIN restaurants r ON b.restaurant_id = r.id
-    JOIN restaurant_tables t ON b.table_id = t.id
+    LEFT JOIN users u ON b.user_id = u.id
+    LEFT JOIN restaurants r ON b.restaurant_id = r.id
+    LEFT JOIN restaurant_tables t ON b.table_id = t.id
     WHERE b.id = $1;
   `;
   const res = await pool.query(query, [id]);
@@ -41,8 +41,8 @@ export const getUserBookings = async (user_id) => {
   const query = `
     SELECT b.*, r.name AS restaurant_name, r.address AS restaurant_address, r.city AS restaurant_city, t.table_number
     FROM bookings b
-    JOIN restaurants r ON b.restaurant_id = r.id
-    JOIN restaurant_tables t ON b.table_id = t.id
+    LEFT JOIN restaurants r ON b.restaurant_id = r.id
+    LEFT JOIN restaurant_tables t ON b.table_id = t.id
     WHERE b.user_id = $1
     ORDER BY b.booking_date DESC, b.booking_time DESC;
   `;
@@ -54,8 +54,8 @@ export const getRestaurantBookings = async (restaurant_id, date) => {
   let query = `
     SELECT b.*, u.name AS user_name, u.email AS user_email, u.phone AS user_phone, t.table_number
     FROM bookings b
-    JOIN users u ON b.user_id = u.id
-    JOIN restaurant_tables t ON b.table_id = t.id
+    LEFT JOIN users u ON b.user_id = u.id
+    LEFT JOIN restaurant_tables t ON b.table_id = t.id
     WHERE b.restaurant_id = $1
   `;
   const params = [restaurant_id];
@@ -73,9 +73,9 @@ export const getAllBookings = async () => {
   const query = `
     SELECT b.*, u.name AS user_name, r.name AS restaurant_name, t.table_number
     FROM bookings b
-    JOIN users u ON b.user_id = u.id
-    JOIN restaurants r ON b.restaurant_id = r.id
-    JOIN restaurant_tables t ON b.table_id = t.id
+    LEFT JOIN users u ON b.user_id = u.id
+    LEFT JOIN restaurants r ON b.restaurant_id = r.id
+    LEFT JOIN restaurant_tables t ON b.table_id = t.id
     ORDER BY b.created_at DESC;
   `;
   const res = await pool.query(query);

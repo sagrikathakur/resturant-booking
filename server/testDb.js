@@ -1,8 +1,11 @@
 import { pool } from "./config/db.js";
+import { initializeDatabase } from "./config/initDb.js";
 
 async function testDatabase() {
   console.log("Connecting to Neon PostgreSQL...");
   try {
+    await initializeDatabase();
+
     const tablesResult = await pool.query(`
       SELECT table_name 
       FROM information_schema.tables 

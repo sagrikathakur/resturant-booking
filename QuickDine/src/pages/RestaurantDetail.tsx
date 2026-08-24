@@ -15,7 +15,7 @@ import { dummyAvailability, dummyRestaurant } from "../assets/assets.ts";
 
 export default function RestaurantDetail() {
     const { slug } = useParams<{ slug: string }>();
-    const { isAuthenticated, setAuthModalOpen } = useAppContext();
+    const { isAuthenticated, setAuthModalOpen, restaurants: contextRestaurants } = useAppContext();
     const navigate = useNavigate();
 
     const [restaurant, setRestaurant] = useState<any>(null);
@@ -30,14 +30,19 @@ export default function RestaurantDetail() {
 
     useEffect(() => {
         const fetchRestaurant = async () => {
-            setRestaurant(dummyRestaurant.find((r) => r.slug === slug));
+            const allRest = contextRestaurants && contextRestaurants.length > 0 ? contextRestaurants : dummyRestaurant;
+            const found = allRest.find(
+                (r: any) => r.slug === slug || r._id === slug || String(r.id) === slug
+            ) || dummyRestaurant.find((r: any) => r.slug === slug || r._id === slug);
+
+            setRestaurant(found || allRest[0]);
             setLoading(false);
         };
 
         if (slug) {
             fetchRestaurant();
         }
-    }, [slug, navigate]);
+    }, [slug, contextRestaurants, navigate]);
 
     useEffect(() => {
         const fetchAvailability = async () => {

@@ -22,18 +22,24 @@ interface RestaurantCardProps {
 export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
     const navigate = useNavigate();
 
+    const restSlug = restaurant.slug || restaurant._id || (restaurant as any).id || "l-essence";
+    const restCuisine = restaurant.cuisine || "Fine Dining";
+    const restPriceRange = restaurant.priceRange || "$$$$";
+    const restLocation = restaurant.location || (restaurant as any).city || "Manhattan, NY";
+    const availableSlots = restaurant.availableSlots || ["18:00", "19:00", "20:00", "21:00"];
+
     const handleSlotClick = (e: React.MouseEvent, slot: string) => {
         e.preventDefault();
         e.stopPropagation();
         const today = new Date().toISOString().split("T")[0];
         // Redirect to booking details confirmation with slot and today's date pre-selected
-        navigate(`/booking/${restaurant.slug}?slot=${slot}&date=${today}`);
+        navigate(`/booking/${restSlug}?slot=${slot}&date=${today}`);
     };
 
     return (
         <div className="group relative bg-white border border-outline-variant/10 card-hover-effect overflow-hidden rounded-md flex flex-col h-full">
             {/* Image & Badges */}
-            <Link to={`/restaurant/${restaurant.slug}`} className="relative h-60 overflow-hidden block">
+            <Link to={`/restaurant/${restSlug}`} className="relative h-60 overflow-hidden block">
                 <img
                     src={restaurant.image || assets.default_restaurant_img}
                     alt={restaurant.name}
@@ -65,19 +71,19 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                 <div>
                     {/* Eyebrow metadata */}
                     <div className="flex justify-between items-center mb-2">
-                        <span className="text-[10px] font-medium text-black/70 tracking-widest uppercase">{restaurant.cuisine}</span>
+                        <span className="text-[10px] font-medium text-black/70 tracking-widest uppercase">{restCuisine}</span>
                         <div className="flex items-center gap-1.5">
-                            <span className="text-[10px] font-medium text-black/55">{restaurant.priceRange}</span>
+                            <span className="text-[10px] font-medium text-black/55">{restPriceRange}</span>
                             <span className="text-black/55/30 text-xs">•</span>
                             <div className="flex items-center gap-0.5 text-amber-500">
                                 <Star size={12} fill="currentColor" />
-                                <span className="text-xs font-medium text-primary">{dummyRating.toFixed(1)}</span>
+                                <span className="text-xs font-medium text-primary">{(restaurant.rating || dummyRating).toFixed(1)}</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Restaurant Title */}
-                    <Link to={`/restaurant/${restaurant.slug}`} className="block mb-2">
+                    <Link to={`/restaurant/${restSlug}`} className="block mb-2">
                         <h3 className="font-display text-lg font-semibold text-primary group-hover:text-black/70 transition-colors line-clamp-1">
                             {restaurant.name}
                         </h3>
@@ -86,7 +92,7 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                     {/* Location */}
                     <p className="text-xs text-black/55 mb-4 flex items-center gap-1">
                         <MapPinIcon size={14} className="text-black/55/70" />
-                        {restaurant.location}
+                        {restLocation}
                     </p>
                 </div>
 
@@ -96,14 +102,14 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                     <span className="block text-[9px] font-medium text-black/55 tracking-wider uppercase mb-2">QUICK RESERVATION</span>
                     <div className="flex flex-wrap gap-1.5">
                         {(() => {
-                            const upcoming = restaurant.availableSlots.filter((slot) => {
+                            const upcoming = availableSlots.filter((slot) => {
                                 const [slotHour, slotMinute] = slot.split(":").map(Number);
                                 const now = new Date();
                                 const currentHour = now.getHours();
                                 const currentMinute = now.getMinutes();
                                 return slotHour > currentHour || (slotHour === currentHour && slotMinute > currentMinute);
                             });
-                            const slotsToDisplay = upcoming.length > 0 ? upcoming : restaurant.availableSlots;
+                            const slotsToDisplay = upcoming.length > 0 ? upcoming : availableSlots;
                             return slotsToDisplay.slice(0, 3).map((slot) => (
                                 <button
                                     key={slot}
@@ -115,7 +121,7 @@ export default function RestaurantCard({ restaurant }: RestaurantCardProps) {
                             ));
                         })()}
                         <Link
-                            to={`/restaurant/${restaurant.slug}`}
+                            to={`/restaurant/${restSlug}`}
                             className="text-[10px] font-medium border border-outline-variant/20 px-3 py-1.5 transition-colors cursor-pointer text-primary hover:bg-primary hover:text-white"
                         >
                             ALL SLOTS

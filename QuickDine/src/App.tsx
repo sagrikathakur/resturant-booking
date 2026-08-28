@@ -11,7 +11,7 @@ import { Toaster } from "react-hot-toast";
 export default function App() {
     return (
         <>
-            <Toaster 
+            <Toaster
                 position="bottom-right"
                 toastOptions={{
                     style: {
@@ -29,29 +29,29 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/search" element={<Search />} />
                 <Route path="/restaurant/:slug" element={<RestaurantDetail />} />
-                <Route 
-                    path="/booking/:slug" 
+                <Route
+                    path="/booking/:slug"
                     element={
                         <ProtectedRoute>
                             <BookingConfirmation />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
-                <Route 
-                    path="/dashboard" 
+                <Route
+                    path="/dashboard"
                     element={
                         <ProtectedRoute allowedRoles={["user", "owner"]}>
                             <Dashboard />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
-                <Route 
-                    path="/owner/dashboard" 
+                <Route
+                    path="/owner/dashboard"
                     element={
                         <ProtectedRoute allowedRoles={["owner"]}>
                             <OwnerDashboard />
                         </ProtectedRoute>
-                    } 
+                    }
                 />
             </Routes>
         </>

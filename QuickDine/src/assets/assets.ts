@@ -54,7 +54,7 @@ export const footerSections = [
     {
         title: "COMPANY",
         links: [
-            { label: "About Us", path: "#" },
+            { label: "About Us", path: "/about" },
             { label: "Partner with Us", path: "#" },
             { label: "Careers", path: "#" },
         ],

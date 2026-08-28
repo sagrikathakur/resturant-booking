@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
+import About from "./pages/About";
 import RestaurantDetail from "./pages/RestaurantDetail";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import Dashboard from "./pages/Dashboard";
@@ -28,6 +29,7 @@ export default function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/search" element={<Search />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/restaurant/:slug" element={<RestaurantDetail />} />
                 <Route
                     path="/booking/:slug"

@@ -39,8 +39,8 @@ export default function Navbar() {
         }
     };
 
-    // Determine if transparent navbar applies (Home page when top of page)
-    const isDarkHeroPage = location.pathname === "/";
+    // Determine if transparent navbar applies (Home page and About page when top of page)
+    const isDarkHeroPage = location.pathname === "/" || location.pathname === "/about";
     const isTransparent = isDarkHeroPage && !scrolled;
 
     return (
@@ -91,6 +91,20 @@ export default function Navbar() {
                             }`}
                         >
                             Restaurants
+                        </Link>
+                        <Link
+                            to="/about"
+                            className={`text-xs font-medium tracking-wider uppercase transition-colors pb-1 border-b-2 cursor-pointer ${
+                                location.pathname === "/about"
+                                    ? isTransparent
+                                        ? "text-white border-white font-semibold"
+                                        : "text-primary border-primary font-semibold"
+                                    : isTransparent
+                                    ? "text-white/80 hover:text-white border-transparent"
+                                    : "text-black/60 hover:text-primary border-transparent"
+                            }`}
+                        >
+                            About Us
                         </Link>
 
                         {user && (
@@ -218,6 +232,9 @@ export default function Navbar() {
                     </Link>
                     <Link to="/search" className="text-base text-on-surface hover:text-primary">
                         Restaurants
+                    </Link>
+                    <Link to="/about" className="text-base text-on-surface hover:text-primary">
+                        About Us
                     </Link>
                     {user && (
                         <button

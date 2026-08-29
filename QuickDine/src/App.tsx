@@ -23,6 +23,7 @@ export default function App() {
                         letterSpacing: "0.02em",
                         borderRadius: "4px",
                         border: "1px solid rgba(255, 255, 255, 0.08)",
+
                     },
                 }}
             />

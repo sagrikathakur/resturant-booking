@@ -42,11 +42,6 @@ Ensure you have **Node.js** (v18 or higher) and **npm** installed.
    npm install
    ```
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory:
-   ```env
-   VITE_API_URL=http://localhost:5000/api
-   ```
 
 ### Development Server
 
@@ -68,10 +63,3 @@ Preview the production build locally:
 npm run preview
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to get started.
-
-## 📄 License
-
-Distributed under the MIT License. See [LICENSE.md](./LICENSE.md) for more details.

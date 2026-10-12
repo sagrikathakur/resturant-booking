@@ -27,14 +27,16 @@ app.use("/api/tables", tableRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/stats", statsRoutes);
 
-app.all("/api/seed", async (req, res) => {
-  try {
-    await initializeDatabase();
-    return res.json({ message: "Database tables created and seeded successfully!" });
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
-});
+if (process.env.NODE_ENV !== "production") {
+  app.post("/api/seed", async (req, res) => {
+    try {
+      await initializeDatabase();
+      return res.json({ message: "Database initialized successfully (Development mode only)" });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  });
+}
 
 app.get("/api/test-db", async (req, res) => {
   try {
@@ -65,6 +67,12 @@ app.get("/api/test-db", async (req, res) => {
 
 app.get("/", (req, res) => {
   res.json({ message: "Restaurant Booking API" });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Server Error:", err);
+  res.status(err.status || 500).json({ message: err.message || "Internal server error" });
 });
 
 app.listen(port, () => {

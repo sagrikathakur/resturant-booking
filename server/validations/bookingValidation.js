@@ -2,9 +2,8 @@ import { z } from "zod";
 
 export const createBookingSchema = z.object({
   user_id: z.union([z.number(), z.string()]).optional(),
-  restaurant_id: z.union([z.number(), z.string()]).refine((val) => val !== undefined && val !== null && val !== "", {
-    message: "restaurant_id is required",
-  }),
+  restaurant_id: z.union([z.number(), z.string()]).optional(),
+  restaurantId: z.union([z.number(), z.string()]).optional(),
   table_id: z.union([z.number(), z.string()]).optional(),
   booking_date: z.string().trim().optional(),
   date: z.string().trim().optional(),
@@ -12,8 +11,13 @@ export const createBookingSchema = z.object({
   time: z.string().trim().optional(),
   number_of_guests: z.union([z.number(), z.string()]).optional(),
   guests: z.union([z.number(), z.string()]).optional(),
+  occasion: z.string().trim().optional(),
+  specialRequests: z.string().trim().optional(),
   status: z.enum(["pending", "confirmed", "cancelled", "completed"]).optional(),
 }).refine(
+  (data) => (data.restaurant_id !== undefined && data.restaurant_id !== "") || (data.restaurantId !== undefined && data.restaurantId !== ""),
+  { message: "restaurant_id is required", path: ["restaurant_id"] }
+).refine(
   (data) => data.booking_date || data.date,
   { message: "Booking date is required (booking_date or date)", path: ["booking_date"] }
 ).refine(

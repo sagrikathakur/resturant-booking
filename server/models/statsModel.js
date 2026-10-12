@@ -2,15 +2,27 @@ import { pool } from "../config/db.js";
 
 export const getOwnerStats = async (restaurantId) => {
   try {
-    const bRes = await pool.query("SELECT COUNT(*) FROM bookings WHERE restaurant_id = $1;", [restaurantId]);
+    const restId = parseInt(restaurantId, 10);
+    if (isNaN(restId)) {
+      return {
+        totalBookings: 0,
+        totalGuests: 0,
+        confirmed: 0,
+        completed: 0,
+        cancelled: 0,
+        bookings: [],
+      };
+    }
+
+    const bRes = await pool.query("SELECT COUNT(*) FROM bookings WHERE restaurant_id = $1;", [restId]);
     const totalBookings = parseInt(bRes.rows[0].count, 10);
 
-    const guestRes = await pool.query("SELECT SUM(number_of_guests) as total_guests FROM bookings WHERE restaurant_id = $1 AND status != 'cancelled';", [restaurantId]);
+    const guestRes = await pool.query("SELECT SUM(number_of_guests) as total_guests FROM bookings WHERE restaurant_id = $1 AND status != 'cancelled';", [restId]);
     const totalGuests = parseInt(guestRes.rows[0].total_guests || 0, 10);
 
     const statusRes = await pool.query(`
       SELECT status, COUNT(*) as count FROM bookings WHERE restaurant_id = $1 GROUP BY status;
-    `, [restaurantId]);
+    `, [restId]);
 
     let confirmed = 0;
     let completed = 0;
@@ -29,7 +41,7 @@ export const getOwnerStats = async (restaurantId) => {
       WHERE b.restaurant_id = $1
       ORDER BY b.booking_date DESC, b.booking_time DESC
       LIMIT 20;
-    `, [restaurantId]);
+    `, [restId]);
 
     const bookings = recentRes.rows.map((b) => ({
       _id: b.id.toString(),

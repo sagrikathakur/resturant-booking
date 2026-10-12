@@ -96,7 +96,10 @@ export const getUsers = async (req, res) => {
 
 export const getUserById = async (req, res) => {
   try {
-    const user = await UserModel.getUserById(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "User not found" });
+
+    const user = await UserModel.getUserById(id);
     if (!user) return res.status(404).json({ message: "User not found" });
     return res.status(200).json({ data: user });
   } catch (err) {
@@ -106,11 +109,14 @@ export const getUserById = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "User not found" });
+
     const updateData = { ...req.body };
     if (updateData.password) {
       updateData.password = await bcrypt.hash(updateData.password, 10);
     }
-    const updated = await UserModel.updateUser(req.params.id, updateData);
+    const updated = await UserModel.updateUser(id, updateData);
     if (!updated) return res.status(404).json({ message: "User not found" });
     return res.status(200).json({ message: "User updated successfully", data: updated });
   } catch (err) {
@@ -120,7 +126,10 @@ export const updateUser = async (req, res) => {
 
 export const deleteUser = async (req, res) => {
   try {
-    const deleted = await UserModel.deleteUser(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "User not found" });
+
+    const deleted = await UserModel.deleteUser(id);
     if (!deleted) return res.status(404).json({ message: "User not found" });
     return res.status(200).json({ message: "User deleted successfully", data: deleted });
   } catch (err) {

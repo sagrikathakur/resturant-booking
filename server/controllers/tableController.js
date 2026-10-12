@@ -23,10 +23,13 @@ export const createTable = async (req, res) => {
 
 export const getTablesByRestaurant = async (req, res) => {
   try {
-    const restaurant_id = req.params.restaurantId || req.query.restaurant_id;
-    if (!restaurant_id) return res.status(400).json({ message: "restaurant_id is required" });
+    const rawRestId = req.params.restaurantId || req.query.restaurant_id;
+    if (!rawRestId) return res.status(400).json({ message: "restaurant_id is required" });
 
-    const tables = await TableModel.getTablesByRestaurant(restaurant_id);
+    const restId = parseInt(rawRestId, 10);
+    if (isNaN(restId)) return res.status(200).json({ data: [] });
+
+    const tables = await TableModel.getTablesByRestaurant(restId);
     return res.status(200).json({ data: tables });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -35,7 +38,10 @@ export const getTablesByRestaurant = async (req, res) => {
 
 export const getTableById = async (req, res) => {
   try {
-    const table = await TableModel.getTableById(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "Table not found" });
+
+    const table = await TableModel.getTableById(id);
     if (!table) return res.status(404).json({ message: "Table not found" });
     return res.status(200).json({ data: table });
   } catch (err) {
@@ -45,7 +51,10 @@ export const getTableById = async (req, res) => {
 
 export const updateTable = async (req, res) => {
   try {
-    const updated = await TableModel.updateTable(req.params.id, req.body);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "Table not found" });
+
+    const updated = await TableModel.updateTable(id, req.body);
     if (!updated) return res.status(404).json({ message: "Table not found" });
     return res.status(200).json({ message: "Table updated successfully", data: updated });
   } catch (err) {
@@ -55,7 +64,10 @@ export const updateTable = async (req, res) => {
 
 export const deleteTable = async (req, res) => {
   try {
-    const deleted = await TableModel.deleteTable(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "Table not found" });
+
+    const deleted = await TableModel.deleteTable(id);
     if (!deleted) return res.status(404).json({ message: "Table not found" });
     return res.status(200).json({ message: "Table deleted successfully", data: deleted });
   } catch (err) {

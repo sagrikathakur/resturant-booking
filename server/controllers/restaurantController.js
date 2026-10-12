@@ -2,13 +2,21 @@ import * as RestaurantModel from "../models/restaurantModel.js";
 
 export const createRestaurant = async (req, res) => {
   try {
-    const { name, address, city, phone, opening_time, closing_time } = req.body;
-    if (!name || !address || !city) {
+    const { name, address, city, location, phone, opening_time, closing_time } = req.body;
+    const finalCity = city || location;
+    if (!name || !address || !finalCity) {
       return res.status(400).json({ message: "Name, address, and city are required" });
     }
 
-    const restaurant = await RestaurantModel.createRestaurant({ name, address, city, phone, opening_time, closing_time });
-    const formatted = { _id: restaurant.id.toString(), ...restaurant };
+    const restaurant = await RestaurantModel.createRestaurant({
+      name,
+      address,
+      city: finalCity,
+      phone,
+      opening_time,
+      closing_time,
+    });
+    const formatted = formatRestaurant(restaurant);
     return res.status(201).json({ message: "Restaurant created successfully", data: formatted });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -53,7 +61,10 @@ export const getRestaurants = async (req, res) => {
 
 export const getRestaurantById = async (req, res) => {
   try {
-    const restaurant = await RestaurantModel.getRestaurantById(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "Restaurant not found" });
+
+    const restaurant = await RestaurantModel.getRestaurantById(id);
     if (!restaurant) return res.status(404).json({ message: "Restaurant not found" });
 
     const formatted = formatRestaurant(restaurant);
@@ -65,7 +76,10 @@ export const getRestaurantById = async (req, res) => {
 
 export const updateRestaurant = async (req, res) => {
   try {
-    const updated = await RestaurantModel.updateRestaurant(req.params.id, req.body);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "Restaurant not found" });
+
+    const updated = await RestaurantModel.updateRestaurant(id, req.body);
     if (!updated) return res.status(404).json({ message: "Restaurant not found" });
     return res.status(200).json({ message: "Restaurant updated successfully", data: updated });
   } catch (err) {
@@ -75,7 +89,10 @@ export const updateRestaurant = async (req, res) => {
 
 export const deleteRestaurant = async (req, res) => {
   try {
-    const deleted = await RestaurantModel.deleteRestaurant(req.params.id);
+    const id = parseInt(req.params.id, 10);
+    if (isNaN(id)) return res.status(404).json({ message: "Restaurant not found" });
+
+    const deleted = await RestaurantModel.deleteRestaurant(id);
     if (!deleted) return res.status(404).json({ message: "Restaurant not found" });
     return res.status(200).json({ message: "Restaurant deleted successfully", data: deleted });
   } catch (err) {
